@@ -26,11 +26,11 @@ html{-webkit-text-size-adjust:100%;}
 body{font-family:var(--sans);background:var(--bg);color:var(--tx);height:100svh;overflow:hidden;display:flex;flex-direction:column;-webkit-tap-highlight-color:transparent;}
 button{font-family:var(--sans);cursor:pointer;border:none;background:none;-webkit-appearance:none;}
 input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appearance:none;}
-
 .view{display:none;flex-direction:column;height:100svh;}
 .view.active{display:flex;}
 #auth,#paywall{overflow-y:auto;}
 
+/* SPLASH */
 #splash{align-items:center;justify-content:center;gap:20px;background:var(--bg);}
 .sp-icon{width:80px;height:80px;border-radius:20px;background:var(--bl2);border:1px solid var(--bl);display:flex;align-items:center;justify-content:center;}
 .sp-icon svg{width:44px;height:44px;}
@@ -41,15 +41,16 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .sp-fill{height:100%;background:var(--bl);animation:spLoad 1.8s ease forwards;}
 @keyframes spLoad{0%{width:0}60%{width:70%}100%{width:100%}}
 
+/* AUTH */
 #auth{justify-content:center;align-items:center;padding:32px 20px;}
 .auth-box{width:100%;max-width:400px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:28px 20px;}
 .auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
 .auth-logo-ico{width:40px;height:40px;border-radius:10px;background:var(--bl2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;}
 .auth-logo-ico svg{width:22px;height:22px;}
-.auth-logo-txt{font-size:20px;font-weight:800;letter-spacing:-0.5px;}
+.auth-logo-txt{font-size:20px;font-weight:800;}
 .auth-logo-txt span{color:var(--bl);}
 .auth-tabs{display:flex;background:var(--bg3);border-radius:var(--r);padding:4px;gap:4px;margin-bottom:22px;}
-.auth-tab{flex:1;padding:11px;border-radius:8px;font-size:15px;font-weight:700;color:var(--tx3);transition:all .15s;}
+.auth-tab{flex:1;padding:11px;border-radius:8px;font-size:15px;font-weight:700;color:var(--tx3);}
 .auth-tab.on{background:var(--bg2);color:var(--tx);}
 .fl{font-size:12px;color:var(--tx3);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:7px;}
 .fi{width:100%;padding:14px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:16px;margin-bottom:14px;transition:border-color .15s;}
@@ -61,18 +62,19 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .demo-btn{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--bd2);color:var(--tx2);font-size:14px;font-weight:600;}
 .auth-err{font-size:13px;color:var(--rd);padding:10px 12px;background:var(--rd2);border-radius:var(--r);margin-bottom:12px;display:none;}
 
+/* PAYWALL */
 #paywall{padding:28px 20px;}
 .pw-inner{max-width:440px;margin:0 auto;width:100%;}
 .pw-head{text-align:center;margin-bottom:24px;}
-.pw-title{font-size:26px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px;}
+.pw-title{font-size:26px;font-weight:800;margin-bottom:6px;}
 .pw-sub{font-size:13px;color:var(--tx3);font-family:var(--mono);}
 .plan-list{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:20px;}
-.plan-card{background:var(--bg2);border:2px solid var(--bd);border-radius:var(--r2);padding:18px 16px;cursor:pointer;transition:border-color .15s;}
+.plan-card{background:var(--bg2);border:2px solid var(--bd);border-radius:var(--r2);padding:18px 16px;cursor:pointer;}
 .plan-card.sel{border-color:var(--bl);}
 .plan-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .plan-name{font-size:13px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;}
 .plan-badge{background:var(--bl);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;}
-.plan-price{font-size:28px;font-weight:800;letter-spacing:-0.5px;}
+.plan-price{font-size:28px;font-weight:800;}
 .plan-price span{font-size:14px;font-weight:400;color:var(--tx3);}
 .plan-feats{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .pf{font-size:12px;color:var(--tx2);background:var(--bg3);padding:4px 10px;border-radius:20px;}
@@ -84,6 +86,7 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .pay-note{text-align:center;font-size:13px;color:var(--tx3);line-height:1.7;}
 .pay-note a{color:var(--bl3);}
 
+/* APP */
 #app{flex:1;overflow:hidden;}
 .ticker-band{background:var(--bg2);border-bottom:1px solid var(--bd);padding:8px 0;overflow:hidden;white-space:nowrap;flex-shrink:0;}
 .ticker-track{display:inline-flex;gap:28px;animation:tick 28s linear infinite;}
@@ -96,7 +99,7 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .app-logo{display:flex;align-items:center;gap:8px;}
 .app-logo-ico{width:34px;height:34px;border-radius:9px;background:var(--bl2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;}
 .app-logo-ico svg{width:19px;height:19px;}
-.app-logo-txt{font-size:18px;font-weight:800;letter-spacing:-0.3px;}
+.app-logo-txt{font-size:18px;font-weight:800;}
 .app-logo-txt span{color:var(--bl);}
 .bar-right{display:flex;align-items:center;gap:8px;}
 .mkt-pill{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:16px;background:var(--bg2);border:1px solid var(--bd);font-size:11px;font-family:var(--mono);}
@@ -111,6 +114,8 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .panel{display:none;position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 24px;}
 .panel.on{display:block;}
 .sec{font-size:11px;font-weight:700;letter-spacing:1.4px;color:var(--tx3);text-transform:uppercase;margin-bottom:10px;}
+
+/* WATCHLIST */
 .wl-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;}
 .wl-hd{display:grid;grid-template-columns:40px 1fr 76px 62px 38px;gap:5px;padding:10px 12px;border-bottom:1px solid var(--bd);}
 .wl-hd span{font-size:11px;color:var(--tx3);}
@@ -129,6 +134,8 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .bell-btn.on{background:var(--bl2);border-color:var(--bl);color:var(--bl3);}
 .add-row{width:100%;margin-top:10px;padding:14px;border:1.5px dashed var(--bd2);border-radius:var(--r);color:var(--tx3);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;}
 .add-row svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;}
+
+/* BROADCAST */
 .bc-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:18px 16px;margin-bottom:14px;}
 .bc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
 .bc-info .bc-title{font-size:16px;font-weight:700;}
@@ -151,31 +158,86 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .waveform.on .wb:nth-child(9){animation:wv .7s ease-in-out infinite 0s;}
 @keyframes wv{0%,100%{height:5px}50%{height:28px}}
 .last-bc{font-family:var(--mono);font-size:13px;color:var(--tx3);background:var(--bg3);border-radius:8px;padding:10px 12px;min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.5;}
-.intv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px;}
+
+/* 自定义播报间隔 */
+.intv-custom-wrap{margin-top:14px;}
+.intv-presets{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px;margin-bottom:12px;}
 .intv-btn{padding:11px 6px;border-radius:8px;border:1px solid var(--bd);color:var(--tx3);font-size:13px;font-weight:600;text-align:center;}
 .intv-btn.on{background:var(--bl2);border-color:var(--bl);color:var(--bl3);}
+.intv-custom-row{display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;}
+.intv-custom-row label{font-size:13px;color:var(--tx2);white-space:nowrap;}
+.intv-slider{flex:1;-webkit-appearance:auto;appearance:auto;height:4px;accent-color:var(--bl);}
+.intv-val{font-family:var(--mono);font-size:14px;color:var(--bl3);font-weight:600;min-width:52px;text-align:right;}
+
 .test-btn{width:100%;padding:13px;margin-top:10px;border:1.5px dashed var(--bd2);border-radius:var(--r);color:var(--tx3);font-size:14px;font-weight:600;}
 .voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
 .vc{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:12px;cursor:pointer;}
 .vc.on{border-color:var(--bl);}
 .vc-name{font-size:13px;font-weight:700;color:var(--tx);}
 .vc-lang{font-size:11px;color:var(--tx3);margin-top:3px;}
+
+/* ALERTS - 搜索补全 + 列表 */
 .al-form{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:14px;}
-.al-row{display:flex;gap:8px;margin-bottom:10px;align-items:center;}
-.af-sel{flex:1;padding:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:15px;}
+.al-row{display:flex;gap:8px;margin-bottom:10px;align-items:flex-start;}
+
+/* 股票搜索框 */
+.sym-search-wrap{flex:1;position:relative;}
+.sym-search-in{
+  width:100%;padding:12px 14px;background:var(--bg3);
+  border:1px solid var(--bd);border-radius:var(--r);
+  color:var(--tx);font-size:15px;font-family:var(--mono);
+  transition:border-color .15s;
+}
+.sym-search-in:focus{border-color:var(--bl);}
+.sym-search-in::placeholder{color:var(--tx3);}
+.sym-dropdown{
+  position:absolute;top:calc(100% + 4px);left:0;right:0;
+  background:var(--bg2);border:1px solid var(--bd);
+  border-radius:var(--r);overflow:hidden;z-index:50;
+  display:none;max-height:220px;overflow-y:auto;
+  box-shadow:0 8px 24px rgba(0,0,0,.5);
+}
+.sym-dropdown.open{display:block;}
+.sym-opt{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 14px;cursor:pointer;transition:background .1s;
+  border-bottom:1px solid var(--bd);
+}
+.sym-opt:last-child{border-bottom:none;}
+.sym-opt:hover,.sym-opt.focused{background:var(--bl2);}
+.sym-opt-sym{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--bl3);}
+.sym-opt-name{font-size:12px;color:var(--tx3);}
+.sym-opt-sector{font-size:10px;color:var(--tx3);background:var(--bg3);padding:2px 7px;border-radius:10px;}
+
+.af-sel{padding:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:15px;max-width:76px;}
 .af-sel:focus{border-color:var(--bl);}
 .af-in{width:96px;padding:12px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:15px;}
 .af-in:focus{border-color:var(--bl);}
 .add-al-btn{width:100%;padding:14px;border-radius:var(--r);background:var(--bl2);border:1px solid var(--bl);color:var(--bl3);font-size:15px;font-weight:700;}
-.al-list{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;}
-.al-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd);}
+
+/* 提醒列表 */
+.al-list-wrap{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;}
+.al-list-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--bd);}
+.al-list-head span{font-size:11px;color:var(--tx3);letter-spacing:1px;text-transform:uppercase;}
+.al-clear{font-size:12px;color:var(--rd);padding:4px 8px;border-radius:5px;border:1px solid var(--rd2);}
+.al-empty{padding:20px;font-size:14px;color:var(--tx3);text-align:center;font-family:var(--mono);}
+.al-item{display:flex;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid var(--bd);transition:background .12s;}
 .al-item:last-child{border-bottom:none;}
-.al-l{display:flex;gap:10px;align-items:center;}
-.al-sym{font-family:var(--mono);font-size:15px;color:var(--bl3);font-weight:500;}
-.al-cd{font-size:14px;color:var(--tx3);}
-.al-px{font-family:var(--mono);font-size:15px;color:var(--tx);}
-.al-del{width:38px;height:38px;border-radius:8px;border:1px solid var(--bd);color:var(--tx3);font-size:20px;display:flex;align-items:center;justify-content:center;}
+.al-item:active{background:var(--bg3);}
+.al-ico{width:36px;height:36px;border-radius:8px;background:var(--bl2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.al-ico svg{width:16px;height:16px;stroke:var(--bl3);stroke-width:1.8;fill:none;stroke-linecap:round;}
+.al-body{flex:1;min-width:0;}
+.al-sym{font-family:var(--mono);font-size:14px;color:var(--bl3);font-weight:700;}
+.al-desc{font-size:12px;color:var(--tx3);margin-top:2px;}
+.al-price-tag{font-family:var(--mono);font-size:14px;color:var(--tx);font-weight:600;margin-right:4px;}
+.al-cond-tag{font-size:11px;padding:3px 8px;border-radius:10px;font-weight:700;}
+.al-cond-tag.above{background:var(--gn2);color:var(--gn);}
+.al-cond-tag.below{background:var(--rd2);color:var(--rd);}
+.al-del{width:34px;height:34px;border-radius:7px;border:1px solid var(--bd);color:var(--tx3);font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.al-del:active{border-color:var(--rd);color:var(--rd);}
 .al-hit{background:var(--gn2);border:1px solid var(--gn);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;font-size:14px;color:var(--gn);display:none;}
+
+/* HOURS */
 .hrs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .hc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;border-left:3px solid var(--bd);}
 .hc.active-s{border-left-color:var(--gn);}
@@ -186,6 +248,8 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .hc-st.open{color:var(--gn);}
 .hc-st.closed{color:var(--tx3);}
 .info-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;}
+
+/* SETTINGS */
 .set-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;}
 .sr-lbl{font-size:14px;color:var(--tx);}
 .sr-sub{font-size:12px;color:var(--tx3);margin-top:3px;}
@@ -202,35 +266,61 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 .push-btn{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--bd2);color:var(--tx2);font-size:14px;font-weight:600;}
 .push-btn.ok{background:var(--gn2);border-color:var(--gn);color:var(--gn);}
 .logout-btn{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--rd2);color:var(--rd);font-size:14px;font-weight:600;margin-top:8px;}
-.ptag{font-size:11px;padding:4px 10px;border-radius:10px;font-weight:700;letter-spacing:0.5px;}
+.ptag{font-size:11px;padding:4px 10px;border-radius:10px;font-weight:700;}
 .ptag.free{background:var(--bd);color:var(--tx3);}
 .ptag.pro{background:var(--bl2);color:var(--bl3);}
 .ptag.annual{background:var(--gn2);color:var(--gn);}
+
+/* 推送方案卡片 */
+.push-guide{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:10px;}
+.push-guide-title{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.push-option{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd);}
+.push-option:last-child{border-bottom:none;}
+.push-opt-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.push-opt-body .push-opt-name{font-size:13px;font-weight:700;color:var(--tx);}
+.push-opt-body .push-opt-desc{font-size:12px;color:var(--tx3);margin-top:3px;line-height:1.5;}
+.push-opt-body .push-opt-tag{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700;display:inline-block;margin-top:5px;}
+.tag-free{background:var(--gn2);color:var(--gn);}
+.tag-paid{background:var(--bl2);color:var(--bl3);}
+.tag-easy{background:#2a1a3a;color:#c084fc;}
+
+/* BOTTOM NAV */
 .bot-nav{display:flex;border-top:1px solid var(--bd);background:var(--bg2);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom);}
 .nb{flex:1;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--tx3);font-size:11px;transition:color .15s;min-height:58px;}
 .nb svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .nb.on{color:var(--bl3);}
 .nb-ico{position:relative;}
 .nb-badge{position:absolute;top:-3px;right:-6px;min-width:16px;height:16px;border-radius:8px;background:var(--rd);font-size:9px;color:#fff;display:none;align-items:center;justify-content:center;padding:0 3px;}
+
+/* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:flex-end;justify-content:center;z-index:100;}
 .overlay.on{display:flex;}
 .modal{width:100%;max-width:480px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2) var(--r2) 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));}
 .modal-handle{width:36px;height:4px;background:var(--bd2);border-radius:2px;margin:0 auto 16px;}
 .modal-title{font-size:17px;font-weight:700;margin-bottom:14px;}
-.modal-in{width:100%;padding:14px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:17px;font-family:var(--mono);margin-bottom:10px;text-transform:uppercase;}
+.modal-search{position:relative;margin-bottom:10px;}
+.modal-in{width:100%;padding:14px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:17px;font-family:var(--mono);text-transform:uppercase;}
 .modal-in:focus{border-color:var(--bl);}
-.modal-hint{font-size:13px;color:var(--tx3);margin-bottom:14px;font-family:var(--mono);}
+.modal-dropdown{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;margin-bottom:10px;max-height:200px;overflow-y:auto;display:none;}
+.modal-dropdown.open{display:block;}
+.modal-opt{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;border-bottom:1px solid var(--bd);}
+.modal-opt:last-child{border-bottom:none;}
+.modal-opt:active,.modal-opt.focused{background:var(--bl2);}
+.modal-opt-sym{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--bl3);}
+.modal-opt-name{font-size:12px;color:var(--tx3);}
 .modal-btns{display:flex;gap:10px;}
 .modal-cancel{flex:1;padding:14px;border-radius:var(--r);border:1px solid var(--bd2);color:var(--tx3);font-size:15px;}
 .modal-confirm{flex:2;padding:14px;border-radius:var(--r);background:var(--bl);color:#fff;font-size:15px;font-weight:700;}
+
 .toast{position:fixed;bottom:calc(70px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(12px);background:var(--bg2);border:1px solid var(--bd2);border-radius:22px;padding:11px 20px;font-size:14px;color:var(--tx);white-space:nowrap;opacity:0;transition:all .28s;z-index:200;pointer-events:none;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
 @media(min-width:520px){
   .wl-hd,.wl-row{grid-template-columns:42px 1fr 88px 70px 42px;}
   .hrs-grid{grid-template-columns:repeat(4,1fr);}
   .plan-list{grid-template-columns:repeat(3,1fr);}
   .overlay{align-items:center;}
-  .modal{border-radius:var(--r2);max-width:380px;}
+  .modal{border-radius:var(--r2);max-width:400px;}
   .modal-handle{display:none;}
 }
 @media(max-width:374px){
@@ -238,7 +328,7 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
   .panel{padding:12px 12px 24px;}
   .mkt-pill{display:none;}
   .wl-hd,.wl-row{grid-template-columns:34px 1fr 68px 58px 34px;}
-  .intv-grid{grid-template-columns:repeat(2,1fr);}
+  .intv-presets{grid-template-columns:repeat(2,1fr);}
 }
 </style>
 </head>
@@ -282,28 +372,13 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
   <div class="pw-inner">
     <div class="pw-head"><div class="pw-title">选择订阅计划</div><div class="pw-sub">7天免费试用，随时取消</div></div>
     <div class="plan-list">
-      <div class="plan-card" id="pFree" onclick="selPlan('free')">
-        <div class="plan-top"><div class="plan-name">免费</div></div>
-        <div class="plan-price">$0<span>/月</span></div>
-        <div class="plan-feats"><span class="pf">3只股票</span><span class="pf">15分钟延迟</span><span class="pf">语音播报</span></div>
-      </div>
-      <div class="plan-card sel" id="pPro" onclick="selPlan('pro')">
-        <div class="plan-top"><div class="plan-name">Pro</div><div class="plan-badge">推荐</div></div>
-        <div class="plan-price">$19.99<span>/月</span></div>
-        <div class="plan-feats"><span class="pf">无限自选股</span><span class="pf">实时数据</span><span class="pf">价格提醒</span><span class="pf">盘前盘后</span><span class="pf">Push通知</span></div>
-      </div>
-      <div class="plan-card" id="pAnnual" onclick="selPlan('annual')">
-        <div class="plan-top"><div class="plan-name">年付 <span style="color:var(--gn);font-size:11px">省33%</span></div></div>
-        <div class="plan-price">$159.99<span>/年</span></div>
-        <div class="plan-feats"><span class="pf">Pro全功能</span><span class="pf">$13.3/月</span></div>
-      </div>
+      <div class="plan-card" id="pFree" onclick="selPlan('free')"><div class="plan-top"><div class="plan-name">免费</div></div><div class="plan-price">$0<span>/月</span></div><div class="plan-feats"><span class="pf">3只股票</span><span class="pf">语音播报</span></div></div>
+      <div class="plan-card sel" id="pPro" onclick="selPlan('pro')"><div class="plan-top"><div class="plan-name">Pro</div><div class="plan-badge">推荐</div></div><div class="plan-price">$19.99<span>/月</span></div><div class="plan-feats"><span class="pf">无限自选股</span><span class="pf">实时数据</span><span class="pf">价格提醒</span><span class="pf">Push通知</span></div></div>
+      <div class="plan-card" id="pAnnual" onclick="selPlan('annual')"><div class="plan-top"><div class="plan-name">年付<span style="color:var(--gn);font-size:11px;margin-left:6px">省33%</span></div></div><div class="plan-price">$159.99<span>/年</span></div><div class="plan-feats"><span class="pf">Pro全功能</span><span class="pf">$13.3/月</span></div></div>
     </div>
     <div id="pwPay" style="display:none">
       <div class="stripe-row"><span class="stripe-lbl">卡号（演示）</span><input class="stripe-in" type="text" maxlength="19" placeholder="4242 4242 4242 4242"></div>
-      <div style="display:flex;gap:8px">
-        <div class="stripe-row" style="flex:1"><span class="stripe-lbl" style="font-size:13px">到期</span><input class="stripe-in" type="text" maxlength="5" placeholder="MM/YY" style="width:70px"></div>
-        <div class="stripe-row" style="flex:1"><span class="stripe-lbl" style="font-size:13px">CVV</span><input class="stripe-in" type="text" maxlength="4" placeholder="•••" style="width:50px"></div>
-      </div>
+      <div style="display:flex;gap:8px"><div class="stripe-row" style="flex:1"><span class="stripe-lbl" style="font-size:13px">到期</span><input class="stripe-in" type="text" maxlength="5" placeholder="MM/YY" style="width:70px"></div><div class="stripe-row" style="flex:1"><span class="stripe-lbl" style="font-size:13px">CVV</span><input class="stripe-in" type="text" maxlength="4" placeholder="•••" style="width:50px"></div></div>
     </div>
     <button class="pay-btn" id="payBtn" onclick="doPay()">开始7天免费试用</button>
     <div class="pay-note">试用期后自动续费 · 随时取消<br><a href="#" onclick="skipPay();return false">跳过，使用免费版</a></div>
@@ -313,10 +388,7 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 <div id="app" class="view">
   <div class="ticker-band"><div class="ticker-track" id="tickerTrack"></div></div>
   <div class="app-bar">
-    <div class="app-logo">
-      <div class="app-logo-ico"><svg viewBox="0 0 44 44" fill="none" stroke="#3b7dd8" stroke-width="2.8" stroke-linecap="round"><polyline points="40,11 25,26 16,17 4,29"/><polyline points="31,11 40,11 40,20"/></svg></div>
-      <div class="app-logo-txt">Stock<span>Cast</span></div>
-    </div>
+    <div class="app-logo"><div class="app-logo-ico"><svg viewBox="0 0 44 44" fill="none" stroke="#3b7dd8" stroke-width="2.8" stroke-linecap="round"><polyline points="40,11 25,26 16,17 4,29"/><polyline points="31,11 40,11 40,20"/></svg></div><div class="app-logo-txt">Stock<span>Cast</span></div></div>
     <div class="bar-right">
       <div class="mkt-pill"><div class="md" id="mktDot"></div><span id="mktTxt"></span></div>
       <button class="icon-btn" onclick="toggleLang()" id="langBtn">中</button>
@@ -324,97 +396,260 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
     </div>
   </div>
   <div class="panels">
+
+    <!-- 自选股 -->
     <div class="panel on" id="pWatch">
-      <div class="sec" id="lblWatch">自选股</div>
+      <div class="sec">自选股</div>
       <div class="wl-card">
-        <div class="wl-hd"><span></span><span id="lblStock">股票</span><span style="text-align:right" id="lblPrice">价格</span><span style="text-align:right" id="lblChg">涨跌</span><span></span></div>
+        <div class="wl-hd"><span></span><span>股票</span><span style="text-align:right">价格</span><span style="text-align:right">涨跌</span><span></span></div>
         <div id="watchRows"></div>
       </div>
-      <button class="add-row" onclick="openModal()"><svg viewBox="0 0 15 15"><line x1="7.5" y1="1" x2="7.5" y2="14"/><line x1="1" y1="7.5" x2="14" y2="7.5"/></svg><span id="lblAddStock">添加股票</span></button>
+      <button class="add-row" onclick="openModal()"><svg viewBox="0 0 15 15"><line x1="7.5" y1="1" x2="7.5" y2="14"/><line x1="1" y1="7.5" x2="14" y2="7.5"/></svg><span>添加股票</span></button>
     </div>
+
+    <!-- 播报 -->
     <div class="panel" id="pBroadcast">
-      <div class="sec" id="lblBcTitle">语音播报</div>
+      <div class="sec">语音播报</div>
       <div class="bc-card">
         <div class="bc-top">
-          <div class="bc-info"><div class="bc-title" id="lblBcMain">自动播报</div><div class="bc-sub" id="bcSub">已停止</div></div>
+          <div class="bc-info"><div class="bc-title">自动播报</div><div class="bc-sub" id="bcSub">已停止</div></div>
           <div class="sw" id="bcSw" onclick="toggleBc()"><div class="sw-k"></div></div>
         </div>
         <div class="waveform" id="waveform"><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div></div>
         <div class="last-bc" id="lastBc">等待播报...</div>
-        <div style="margin-top:14px"><div class="sec" id="lblIntv">播报间隔</div>
-          <div class="intv-grid">
-            <button class="intv-btn" onclick="setIntv(1,this)">1分钟</button>
-            <button class="intv-btn on" onclick="setIntv(5,this)">5分钟</button>
-            <button class="intv-btn" onclick="setIntv(15,this)">15分钟</button>
-            <button class="intv-btn" onclick="setIntv(30,this)">30分钟</button>
+        <div class="intv-custom-wrap">
+          <div class="sec">播报间隔</div>
+          <div class="intv-presets">
+            <button class="intv-btn" onclick="setPreset(0.5,this)">0.5分钟</button>
+            <button class="intv-btn on" onclick="setPreset(5,this)">5分钟</button>
+            <button class="intv-btn" onclick="setPreset(15,this)">15分钟</button>
+            <button class="intv-btn" onclick="setPreset(30,this)">30分钟</button>
+          </div>
+          <div class="intv-custom-row">
+            <label>自定义</label>
+            <input class="intv-slider" type="range" id="intvSlider" min="0.1" max="60" step="0.1" value="5" oninput="setCustomIntv(this.value)">
+            <span class="intv-val" id="intvVal">5.0 分钟</span>
           </div>
         </div>
-        <button class="test-btn" id="testBtnEl" onclick="testBc()">🔊 测试播报</button>
+        <button class="test-btn" onclick="testBc()">🔊 测试播报</button>
       </div>
-      <div class="bc-card"><div class="sec" id="lblVoice">语音选择</div><div class="voice-grid" id="voiceGrid"></div></div>
+      <div class="bc-card"><div class="sec">语音选择</div><div class="voice-grid" id="voiceGrid"></div></div>
     </div>
+
+    <!-- 价格提醒 -->
     <div class="panel" id="pAlerts">
-      <div class="sec" id="lblAlTitle">价格提醒</div>
+      <div class="sec">价格提醒</div>
       <div class="al-hit" id="alHit"></div>
       <div class="al-form">
         <div class="al-row">
-          <select class="af-sel" id="alSym"><option>AAPL</option><option>TSLA</option><option>NVDA</option><option>MSFT</option><option>AMZN</option><option>META</option><option>GOOGL</option><option>SPY</option><option>QQQ</option></select>
-          <select class="af-sel" id="alCond" style="max-width:76px"><option value="above">≥</option><option value="below">≤</option></select>
+          <!-- 股票搜索补全 -->
+          <div class="sym-search-wrap">
+            <input class="sym-search-in" id="alSymIn" type="text" placeholder="搜索股票 AAPL..." autocomplete="off" oninput="symSearch(this.value)" onfocus="symSearch(this.value)">
+            <div class="sym-dropdown" id="symDropdown"></div>
+          </div>
+          <select class="af-sel" id="alCond"><option value="above">≥ 涨到</option><option value="below">≤ 跌到</option></select>
           <input class="af-in" id="alPrice" type="number" placeholder="价格" step="0.01">
         </div>
-        <button class="add-al-btn" onclick="addAlert()" id="lblAddAl">＋ 添加提醒</button>
+        <button class="add-al-btn" onclick="addAlert()">＋ 添加提醒</button>
       </div>
-      <div class="al-list" id="alList"><div style="padding:16px;font-size:14px;color:var(--tx3);text-align:center" id="lblNoAl">暂无提醒</div></div>
+      <!-- 提醒列表 -->
+      <div class="al-list-wrap">
+        <div class="al-list-head">
+          <span>已设提醒 <span id="alCount">0</span> 条</span>
+          <button class="al-clear" onclick="clearAlerts()">清空全部</button>
+        </div>
+        <div id="alList"><div class="al-empty">暂无价格提醒<br><span style="font-size:12px;color:var(--tx3)">搜索股票并设置触发价格</span></div></div>
+      </div>
     </div>
+
+    <!-- 交易时段 -->
     <div class="panel" id="pHours">
-      <div class="sec" id="lblHrsTitle">交易时段</div>
+      <div class="sec">交易时段</div>
       <div class="hrs-grid">
         <div class="hc pre-s"><div class="hc-lbl">盘前</div><div class="hc-time">04:00–09:30</div><div class="hc-st closed" id="hPreSt">ET</div></div>
         <div class="hc active-s"><div class="hc-lbl">正式</div><div class="hc-time">09:30–16:00</div><div class="hc-st open" id="hRegSt">ET</div></div>
         <div class="hc"><div class="hc-lbl">盘后</div><div class="hc-time">16:00–20:00</div><div class="hc-st closed" id="hAftSt">ET</div></div>
         <div class="hc"><div class="hc-lbl">当前ET</div><div class="hc-time" id="etNow">–</div><div class="hc-st closed" id="hNowSt">–</div></div>
       </div>
-      <div class="info-card"><div class="sec">NYSE 交易规则</div><div style="font-size:14px;color:var(--tx2);line-height:1.9;font-family:var(--mono)"><div>周一至周五 交易日</div><div>节假日休市（感恩节/圣诞节等）</div><div style="margin-top:8px;font-size:12px;color:var(--tx3)">盘前/盘后流动性较低，价差较大</div></div></div>
+      <div class="info-card"><div class="sec">NYSE 规则</div><div style="font-size:14px;color:var(--tx2);line-height:1.9;font-family:var(--mono)"><div>周一至周五 交易日</div><div>节假日休市（感恩节/圣诞节等）</div><div style="margin-top:8px;font-size:12px;color:var(--tx3)">盘前/盘后流动性低，价差较大</div></div></div>
     </div>
+
+    <!-- 设置 -->
     <div class="panel" id="pSettings">
       <div class="sec">账号</div>
       <div class="set-row"><div><div class="sr-lbl" id="uEmail">—</div><div class="sr-sub" id="uPlan">免费版</div></div><span class="ptag free" id="pTag">FREE</span></div>
       <button class="logout-btn" onclick="doLogout()">退出登录</button>
+
       <div class="sec" style="margin-top:20px">数据源</div>
       <div class="api-card">
         <div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px">Finnhub API Key</div>
         <div style="font-size:12px;color:var(--tx3);font-family:var(--mono)">免费注册 → finnhub.io → 复制 API Key</div>
-        <div class="api-in-row"><input class="api-in" id="apiIn" type="password" placeholder="输入 Finnhub API Key..."><button class="api-btn" id="apiBtn" onclick="connectFH()">连接</button></div>
+        <div class="api-in-row"><input class="api-in" id="apiIn" type="password" placeholder="粘贴 API Key..."><button class="api-btn" id="apiBtn" onclick="connectFH()">连接</button></div>
         <div class="conn-row"><div class="cd" id="connDot"></div><span class="ct" id="connTxt">未连接 — 使用模拟数据</span></div>
       </div>
-      <div class="sec" style="margin-top:4px">通知</div>
-      <button class="push-btn" id="pushBtn" onclick="reqPush()">🔔 开启 Push 通知</button>
-      <div class="sec" style="margin-top:20px">订阅升级</div>
+
+      <div class="sec" style="margin-top:4px">浏览器通知</div>
+      <button class="push-btn" id="pushBtn" onclick="reqPush()">🔔 开启 Push 通知（页面打开时）</button>
+
+      <div class="sec" style="margin-top:20px">🔕 关闭网页后仍想收提醒？</div>
+      <div class="push-guide">
+        <div class="push-guide-title">📡 后台推送方案对比</div>
+        <div class="push-option">
+          <div class="push-opt-icon" style="background:#1a2e1a">📱</div>
+          <div class="push-opt-body">
+            <div class="push-opt-name">方案一：Telegram Bot（最推荐）</div>
+            <div class="push-opt-desc">创建一个 Telegram Bot，价格触发时通过 Bot API 发消息到你手机。手机装 Telegram 即可实时收到，无需后台服务。</div>
+            <span class="push-opt-tag tag-free">免费</span>
+            <span class="push-opt-tag tag-easy">最简单</span>
+          </div>
+        </div>
+        <div class="push-option">
+          <div class="push-opt-icon" style="background:#1a1a2e">📧</div>
+          <div class="push-opt-body">
+            <div class="push-opt-name">方案二：邮件提醒（EmailJS）</div>
+            <div class="push-opt-desc">集成 EmailJS，价格触发时自动发邮件到你的邮箱，免费版每月200封，够个人使用。</div>
+            <span class="push-opt-tag tag-free">免费200封/月</span>
+          </div>
+        </div>
+        <div class="push-option">
+          <div class="push-opt-icon" style="background:#1a2a1a">🔔</div>
+          <div class="push-opt-body">
+            <div class="push-opt-name">方案三：Ntfy.sh 推送</div>
+            <div class="push-opt-desc">ntfy.sh 是免费开源推送服务，手机装 ntfy App，网页触发时推送到手机，无需服务器，完全免费。</div>
+            <span class="push-opt-tag tag-free">完全免费</span>
+          </div>
+        </div>
+        <div class="push-option">
+          <div class="push-opt-icon" style="background:#2a1a1a">⚙️</div>
+          <div class="push-opt-body">
+            <div class="push-opt-name">方案四：Vercel Cron + Web Push</div>
+            <div class="push-opt-desc">将项目升级为 Vercel 部署，加 Cron Job 定时检查价格，触发 Web Push 到手机。需要写后端逻辑。</div>
+            <span class="push-opt-tag tag-paid">需要后端</span>
+          </div>
+        </div>
+      </div>
+      <button class="push-btn" style="margin-bottom:8px" onclick="setupTelegram()">🤖 一键配置 Telegram Bot 提醒</button>
+
+      <div class="sec" style="margin-top:16px">订阅升级</div>
       <div class="set-row"><div><div class="sr-lbl">升级到 Pro</div><div class="sr-sub">实时数据 · 无限股票 · $19.99/月</div></div><button style="padding:9px 14px;border-radius:var(--r);background:var(--bl);color:#fff;font-size:14px;font-weight:700" onclick="showV('paywall')">升级</button></div>
     </div>
+
   </div>
   <div class="bot-nav">
-    <button class="nb on" id="nbWatch" onclick="goPanel('Watch')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span id="nLblW">自选</span></button>
-    <button class="nb" id="nbBroadcast" onclick="goPanel('Broadcast')"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg><span id="nLblB">播报</span></button>
-    <button class="nb" id="nbAlerts" onclick="goPanel('Alerts')"><div class="nb-ico"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="nb-badge" id="alBadge"></div></div><span id="nLblA">提醒</span></button>
-    <button class="nb" id="nbHours" onclick="goPanel('Hours')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="nLblH">时段</span></button>
+    <button class="nb on" id="nbWatch" onclick="goPanel('Watch')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg><span>自选</span></button>
+    <button class="nb" id="nbBroadcast" onclick="goPanel('Broadcast')"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg><span>播报</span></button>
+    <button class="nb" id="nbAlerts" onclick="goPanel('Alerts')"><div class="nb-ico"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><div class="nb-badge" id="alBadge"></div></div><span>提醒</span></button>
+    <button class="nb" id="nbHours" onclick="goPanel('Hours')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>时段</span></button>
   </div>
 </div>
 
+<!-- 添加股票 Modal -->
 <div class="overlay" id="addOverlay">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div class="modal-title" id="lblModalTitle">添加股票</div>
-    <input class="modal-in" id="modalIn" type="text" maxlength="6" placeholder="AAPL" oninput="this.value=this.value.toUpperCase()">
-    <div class="modal-hint">支持：AAPL TSLA NVDA MSFT AMZN META GOOGL SPY QQQ 等</div>
+    <div class="modal-title">搜索并添加股票</div>
+    <div class="modal-search">
+      <input class="modal-in" id="modalIn" type="text" placeholder="输入代码或名称..." oninput="modalSearch(this.value)">
+    </div>
+    <div class="modal-dropdown" id="modalDropdown"></div>
     <div class="modal-btns"><button class="modal-cancel" onclick="closeModal()">取消</button><button class="modal-confirm" onclick="confirmAdd()">添加</button></div>
   </div>
 </div>
+
+<!-- Telegram 配置 Modal -->
+<div class="overlay" id="tgOverlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">🤖 配置 Telegram 提醒</div>
+    <div style="font-size:13px;color:var(--tx3);line-height:1.8;margin-bottom:14px;font-family:var(--mono)">
+      1. Telegram 搜索 <b style="color:var(--bl3)">@BotFather</b>，发 /newbot 创建机器人<br>
+      2. 复制 Bot Token 粘贴到下方<br>
+      3. 搜索 <b style="color:var(--bl3)">@userinfobot</b>，发任意消息获取你的 Chat ID<br>
+      4. 点保存，价格触发时自动推送到你的 Telegram
+    </div>
+    <div class="fl">Bot Token</div>
+    <input class="fi" id="tgToken" type="text" placeholder="1234567890:ABCdef...">
+    <div class="fl">Chat ID</div>
+    <input class="fi" id="tgChatId" type="text" placeholder="123456789">
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeTg()">取消</button>
+      <button class="modal-confirm" onclick="saveTg()">保存并测试</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// 所有变量和函数定义在最前面，boot最后
-const S={user:null,plan:"free",lang:"zh",apiKey:"",connected:false,bcOn:false,bcIntv:5,bcTimer:null,selPlanV:"pro",voices:[],selVoice:null,alerts:[],stocks:[
+// ── 股票数据库（支持搜索补全）──
+const STOCKS_DB = [
+  {sym:"AAPL",name:"Apple Inc.",sector:"科技"},
+  {sym:"MSFT",name:"Microsoft Corp.",sector:"科技"},
+  {sym:"GOOGL",name:"Alphabet Inc.",sector:"科技"},
+  {sym:"AMZN",name:"Amazon.com Inc.",sector:"电商"},
+  {sym:"META",name:"Meta Platforms",sector:"社交"},
+  {sym:"NVDA",name:"NVIDIA Corp.",sector:"芯片"},
+  {sym:"TSLA",name:"Tesla Inc.",sector:"电动车"},
+  {sym:"AMD",name:"Advanced Micro Devices",sector:"芯片"},
+  {sym:"INTC",name:"Intel Corp.",sector:"芯片"},
+  {sym:"NFLX",name:"Netflix Inc.",sector:"流媒体"},
+  {sym:"DIS",name:"Walt Disney Co.",sector:"娱乐"},
+  {sym:"BABA",name:"Alibaba Group",sector:"电商"},
+  {sym:"JD",name:"JD.com Inc.",sector:"电商"},
+  {sym:"PDD",name:"PDD Holdings",sector:"电商"},
+  {sym:"NIO",name:"NIO Inc.",sector:"电动车"},
+  {sym:"XPEV",name:"XPeng Inc.",sector:"电动车"},
+  {sym:"LI",name:"Li Auto Inc.",sector:"电动车"},
+  {sym:"SPY",name:"S&P 500 ETF",sector:"ETF"},
+  {sym:"QQQ",name:"Nasdaq 100 ETF",sector:"ETF"},
+  {sym:"VTI",name:"Total Market ETF",sector:"ETF"},
+  {sym:"GLD",name:"Gold ETF",sector:"ETF"},
+  {sym:"ARKK",name:"ARK Innovation ETF",sector:"ETF"},
+  {sym:"COIN",name:"Coinbase Global",sector:"加密"},
+  {sym:"MSTR",name:"MicroStrategy",sector:"加密"},
+  {sym:"PLTR",name:"Palantir Technologies",sector:"AI"},
+  {sym:"AI",name:"C3.ai Inc.",sector:"AI"},
+  {sym:"SMCI",name:"Super Micro Computer",sector:"AI"},
+  {sym:"JPM",name:"JPMorgan Chase",sector:"金融"},
+  {sym:"BAC",name:"Bank of America",sector:"金融"},
+  {sym:"GS",name:"Goldman Sachs",sector:"金融"},
+  {sym:"BRK.B",name:"Berkshire Hathaway B",sector:"金融"},
+  {sym:"V",name:"Visa Inc.",sector:"金融"},
+  {sym:"MA",name:"Mastercard Inc.",sector:"金融"},
+  {sym:"WMT",name:"Walmart Inc.",sector:"零售"},
+  {sym:"COST",name:"Costco Wholesale",sector:"零售"},
+  {sym:"SBUX",name:"Starbucks Corp.",sector:"消费"},
+  {sym:"MCD",name:"McDonald's Corp.",sector:"消费"},
+  {sym:"KO",name:"Coca-Cola Co.",sector:"消费"},
+  {sym:"PEP",name:"PepsiCo Inc.",sector:"消费"},
+  {sym:"PFE",name:"Pfizer Inc.",sector:"医药"},
+  {sym:"JNJ",name:"Johnson & Johnson",sector:"医药"},
+  {sym:"MRNA",name:"Moderna Inc.",sector:"医药"},
+  {sym:"TSM",name:"Taiwan Semiconductor",sector:"芯片"},
+  {sym:"ASML",name:"ASML Holding",sector:"芯片"},
+  {sym:"ORCL",name:"Oracle Corp.",sector:"科技"},
+  {sym:"CRM",name:"Salesforce Inc.",sector:"科技"},
+  {sym:"ADBE",name:"Adobe Inc.",sector:"科技"},
+  {sym:"UBER",name:"Uber Technologies",sector:"出行"},
+  {sym:"LYFT",name:"Lyft Inc.",sector:"出行"},
+  {sym:"SNAP",name:"Snap Inc.",sector:"社交"},
+  {sym:"TWTR",name:"Twitter/X Corp.",sector:"社交"},
+  {sym:"HOOD",name:"Robinhood Markets",sector:"金融"},
+  {sym:"SOFI",name:"SoFi Technologies",sector:"金融"},
+  {sym:"RIVN",name:"Rivian Automotive",sector:"电动车"},
+  {sym:"F",name:"Ford Motor Co.",sector:"汽车"},
+  {sym:"GM",name:"General Motors",sector:"汽车"},
+  {sym:"NKLA",name:"Nikola Corp.",sector:"电动车"},
+  {sym:"BA",name:"Boeing Co.",sector:"航空"},
+  {sym:"AAL",name:"American Airlines",sector:"航空"},
+  {sym:"DAL",name:"Delta Air Lines",sector:"航空"},
+  {sym:"XOM",name:"Exxon Mobil",sector:"能源"},
+  {sym:"CVX",name:"Chevron Corp.",sector:"能源"},
+];
+
+// ── STATE ──
+const S={user:null,plan:"free",lang:"zh",apiKey:"",connected:false,bcOn:false,bcIntv:5,bcTimer:null,selPlanV:"pro",voices:[],selVoice:null,alerts:[],tgToken:"",tgChatId:"",
+stocks:[
   {sym:"AAPL",name:"Apple Inc.",cl:"#1e2e4a",tc:"#7cb3f5",p:213.45,c:1.23,pct:0.58},
   {sym:"TSLA",name:"Tesla Inc.",cl:"#2a1a3a",tc:"#c084fc",p:178.92,c:-3.41,pct:-1.87},
   {sym:"NVDA",name:"NVIDIA Corp.",cl:"#1a3a1a",tc:"#4ade80",p:1089.3,c:22.1,pct:2.07},
@@ -422,18 +657,15 @@ const S={user:null,plan:"free",lang:"zh",apiKey:"",connected:false,bcOn:false,bc
   {sym:"AMZN",name:"Amazon.com",cl:"#3a2a0a",tc:"#fbbf24",p:185.67,c:3.28,pct:1.80},
   {sym:"META",name:"Meta Platforms",cl:"#1a2040",tc:"#818cf8",p:521.34,c:8.91,pct:1.74}
 ]};
-const I={
-  zh:{watch:"自选股",stock:"股票",price:"价格",chg:"涨跌",addStock:"添加股票",bcTitle:"语音播报",bcMain:"自动播报",stopped:"已停止",intv:"播报间隔",testBc:"🔊 测试播报",voice:"语音选择",alTitle:"价格提醒",noAl:"暂无提醒",addAl:"＋ 添加提醒",hrsTitle:"交易时段",modalTitle:"添加股票",nW:"自选",nB:"播报",nA:"提醒",nH:"时段",open:"开盘中",pre:"盘前",after:"盘后",closed:"已收盘",weekend:"周末休市",
-    bcText:(g,l)=>{let t="美股行情播报：";g.forEach(s=>{t+=s.sym+"，当前"+s.p.toFixed(2)+"美元，上涨"+s.pct.toFixed(2)+"个百分点；";});l.forEach(s=>{t+=s.sym+"，当前"+s.p.toFixed(2)+"美元，下跌"+Math.abs(s.pct).toFixed(2)+"个百分点；";});return t;},
-    alText:(s,a)=>"提醒："+s.sym+" 已"+(a.cond==="above"?"上涨至":"下跌至")+" $"+s.p.toFixed(2)+"，触发 $"+a.price.toFixed(2)+" 价位"},
-  en:{watch:"Watchlist",stock:"Stock",price:"Price",chg:"Change",addStock:"Add Stock",bcTitle:"Voice Cast",bcMain:"Auto Broadcast",stopped:"Stopped",intv:"Interval",testBc:"🔊 Test",voice:"Voice",alTitle:"Alerts",noAl:"No alerts",addAl:"＋ Add Alert",hrsTitle:"Market Hours",modalTitle:"Add Stock",nW:"Watch",nB:"Cast",nA:"Alerts",nH:"Hours",open:"Open",pre:"Pre-mkt",after:"After-hrs",closed:"Closed",weekend:"Weekend",
-    bcText:(g,l)=>{let t="Market update: ";g.forEach(s=>{t+=s.sym+" $"+s.p.toFixed(2)+" +"+s.pct.toFixed(2)+"%. ";});l.forEach(s=>{t+=s.sym+" $"+s.p.toFixed(2)+" "+s.pct.toFixed(2)+"%. ";});return t;},
-    alText:(s,a)=>"Alert: "+s.sym+" hit $"+s.p.toFixed(2)+", triggered $"+a.price.toFixed(2)+" "+a.cond}
-};
-const T=()=>I[S.lang];
+
+// ── 当前选中的报警股票 ──
+let selectedAlertSym = "";
+
 function g(id){return document.getElementById(id);}
 function st(id,v){const e=g(id);if(e)e.textContent=v;}
 function showV(id){["splash","auth","paywall","app"].forEach(v=>{const e=g(v);if(e)e.style.display=(v===id)?"flex":"none";});}
+
+// ── AUTH ──
 function switchTab(t){document.querySelectorAll(".auth-tab").forEach((b,i)=>b.classList.toggle("on",(i===0&&t==="login")||(i===1&&t==="register")));g("loginF").style.display=t==="login"?"":"none";g("regF").style.display=t==="register"?"":"none";}
 function errMsg(m){const e=g("authErr");e.textContent=m;e.style.display="block";setTimeout(()=>e.style.display="none",3000);}
 function doLogin(){const em=g("lEmail").value.trim(),pw=g("lPwd").value;if(!em||!pw){errMsg("请填写邮箱和密码");return;}const u=JSON.parse(localStorage.getItem("sc_u")||"{}");if(!u[em]||u[em].pw!==btoa(pw)){errMsg("邮箱或密码错误");return;}login(em,u[em].plan||"free");}
@@ -441,46 +673,324 @@ function doRegister(){const em=g("rEmail").value.trim(),pw=g("rPwd").value,pw2=g
 function demoLogin(){login("demo@stockcast.app","pro");}
 function login(em,plan){S.user=em;S.plan=plan;localStorage.setItem("sc_s",JSON.stringify({em,plan,ts:Date.now()}));loadData();if(plan==="free"&&em!=="demo@stockcast.app")showV("paywall");else launchApp();}
 function doLogout(){S.user=null;S.plan="free";localStorage.removeItem("sc_s");if(S.bcTimer)clearInterval(S.bcTimer);S.bcOn=false;showV("auth");}
-function loadData(){const d=localStorage.getItem("sc_d_"+S.user);if(d){const o=JSON.parse(d);if(o.stocks)S.stocks=o.stocks;if(o.alerts)S.alerts=o.alerts;if(o.apiKey)S.apiKey=o.apiKey;if(o.lang)S.lang=o.lang;}}
-function save(){if(!S.user)return;localStorage.setItem("sc_d_"+S.user,JSON.stringify({stocks:S.stocks,alerts:S.alerts,apiKey:S.apiKey,lang:S.lang}));}
+function loadData(){const d=localStorage.getItem("sc_d_"+S.user);if(d){const o=JSON.parse(d);if(o.stocks)S.stocks=o.stocks;if(o.alerts)S.alerts=o.alerts;if(o.apiKey)S.apiKey=o.apiKey;if(o.lang)S.lang=o.lang;if(o.tgToken)S.tgToken=o.tgToken;if(o.tgChatId)S.tgChatId=o.tgChatId;if(o.bcIntv)S.bcIntv=o.bcIntv;}}
+function save(){if(!S.user)return;localStorage.setItem("sc_d_"+S.user,JSON.stringify({stocks:S.stocks,alerts:S.alerts,apiKey:S.apiKey,lang:S.lang,tgToken:S.tgToken,tgChatId:S.tgChatId,bcIntv:S.bcIntv}));}
+
+// ── PAYWALL ──
 function selPlan(p){S.selPlanV=p;document.querySelectorAll(".plan-card").forEach(c=>c.classList.remove("sel"));g("p"+p.charAt(0).toUpperCase()+p.slice(1)).classList.add("sel");if(p==="free"){g("pwPay").style.display="none";g("payBtn").textContent="使用免费版";}else{g("pwPay").style.display="block";g("payBtn").textContent="开始7天免费试用";}}
 function doPay(){if(S.selPlanV==="free"){skipPay();return;}const btn=g("payBtn");btn.textContent="处理中...";btn.disabled=true;setTimeout(()=>{const u=JSON.parse(localStorage.getItem("sc_u")||"{}");if(u[S.user]){u[S.user].plan=S.selPlanV;localStorage.setItem("sc_u",JSON.stringify(u));}S.plan=S.selPlanV;const ss=JSON.parse(localStorage.getItem("sc_s")||"{}");ss.plan=S.selPlanV;localStorage.setItem("sc_s",JSON.stringify(ss));launchApp();},1400);}
 function skipPay(){selPlan("free");doPay();}
-function launchApp(){showV("app");applyLang();renderWatch();renderTicker();renderAlerts();loadVoices();checkMkt();setInterval(checkMkt,30000);startDrift();if(S.apiKey)reconnectFH();updateSettings();}
-function toggleLang(){S.lang=S.lang==="zh"?"en":"zh";g("langBtn").textContent=S.lang==="zh"?"中":"EN";applyLang();save();}
-function applyLang(){const L=T();st("lblWatch",L.watch);st("lblStock",L.stock);st("lblPrice",L.price);st("lblChg",L.chg);st("lblAddStock",L.addStock);st("lblBcTitle",L.bcTitle);st("lblBcMain",L.bcMain);st("lblIntv",L.intv);st("testBtnEl",L.testBc);st("lblVoice",L.voice);st("lblAlTitle",L.alTitle);st("lblNoAl",L.noAl);st("lblAddAl",L.addAl);st("lblHrsTitle",L.hrsTitle);st("lblModalTitle",L.modalTitle);st("nLblW",L.nW);st("nLblB",L.nB);st("nLblA",L.nA);st("nLblH",L.nH);if(!S.bcOn)st("bcSub",L.stopped);g("langBtn").textContent=S.lang==="zh"?"中":"EN";}
-function goPanel(name){document.querySelectorAll(".panel").forEach(p=>p.classList.remove("on"));g("p"+name).classList.add("on");document.querySelectorAll(".nb").forEach(b=>b.classList.remove("on"));const nb=g({Watch:"nbWatch",Broadcast:"nbBroadcast",Alerts:"nbAlerts",Hours:"nbHours"}[name]);if(nb)nb.classList.add("on");}
-function renderWatch(){const el=g("watchRows");el.innerHTML="";S.stocks.forEach(s=>{const up=s.c>=0,hasAl=S.alerts.some(a=>a.sym===s.sym);const row=document.createElement("div");row.className="wl-row";row.innerHTML='<div class="s-ico" style="background:'+s.cl+';color:'+s.tc+'">'+s.sym.slice(0,2)+'</div><div><div class="s-sym">'+s.sym+'</div><div class="s-nm">'+s.name+'</div></div><div class="s-px">$'+s.p.toFixed(2)+'</div><div class="s-ch '+(up?"up":"dn")+'">'+(up?"+":"")+s.pct.toFixed(2)+'%</div><button class="bell-btn '+(hasAl?"on":"")+'" onclick="focusAlert(\''+s.sym+'\',event)"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>';el.appendChild(row);});const sel=g("alSym");if(sel){const cur=sel.value;sel.innerHTML=S.stocks.map(s=>"<option"+(s.sym===cur?" selected":"")+">"+s.sym+"</option>").join("");}}
-function focusAlert(sym,e){if(e)e.stopPropagation();goPanel("Alerts");const s=g("alSym");if(s)s.value=sym;g("alPrice").focus();}
-function openModal(){g("addOverlay").classList.add("on");g("modalIn").value="";setTimeout(()=>g("modalIn").focus(),100);}
+
+// ── LAUNCH ──
+function launchApp(){
+  showV("app");
+  renderWatch();renderTicker();renderAlerts();
+  loadVoices();checkMkt();
+  setInterval(checkMkt,30000);
+  startDrift();
+  if(S.apiKey)reconnectFH();
+  updateSettings();
+  // 同步播报间隔滑块
+  const sl=g("intvSlider");if(sl){sl.value=S.bcIntv;g("intvVal").textContent=S.bcIntv.toFixed(1)+" 分钟";}
+}
+
+// ── PANELS ──
+function goPanel(name){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("on"));
+  g("p"+name).classList.add("on");
+  document.querySelectorAll(".nb").forEach(b=>b.classList.remove("on"));
+  const nb=g({Watch:"nbWatch",Broadcast:"nbBroadcast",Alerts:"nbAlerts",Hours:"nbHours"}[name]);
+  if(nb)nb.classList.add("on");
+  // 关闭下拉
+  closeDropdowns();
+}
+
+// ── 股票搜索补全 ──
+function symSearch(q){
+  const dd=g("symDropdown");
+  if(!q||q.length<1){dd.classList.remove("open");return;}
+  const up=q.toUpperCase();
+  const results=STOCKS_DB.filter(s=>s.sym.startsWith(up)||s.name.toUpperCase().includes(up)||s.sector.includes(q)).slice(0,8);
+  if(!results.length){dd.classList.remove("open");return;}
+  dd.innerHTML=results.map(s=>`
+    <div class="sym-opt" onclick="selectAlertSym('${s.sym}','${s.name}')">
+      <div><div class="sym-opt-sym">${s.sym}</div><div class="sym-opt-name">${s.name}</div></div>
+      <span class="sym-opt-sector">${s.sector}</span>
+    </div>`).join("");
+  dd.classList.add("open");
+}
+
+function selectAlertSym(sym,name){
+  selectedAlertSym=sym;
+  g("alSymIn").value=sym;
+  g("symDropdown").classList.remove("open");
+  g("alPrice").focus();
+}
+
+function closeDropdowns(){
+  document.querySelectorAll(".sym-dropdown,.modal-dropdown").forEach(d=>d.classList.remove("open"));
+}
+
+// 点击外部关闭下拉
+document.addEventListener("click",e=>{
+  if(!e.target.closest(".sym-search-wrap")&&!e.target.closest(".modal-search"))closeDropdowns();
+});
+
+// ── MODAL 搜索 ──
+let modalSelectedSym="";
+function modalSearch(q){
+  const dd=g("modalDropdown");
+  if(!q||q.length<1){dd.classList.remove("open");modalSelectedSym="";return;}
+  const up=q.toUpperCase();
+  const results=STOCKS_DB.filter(s=>s.sym.startsWith(up)||s.name.toUpperCase().includes(up)).slice(0,10);
+  if(!results.length){dd.classList.remove("open");return;}
+  dd.innerHTML=results.map(s=>`
+    <div class="modal-opt" onclick="modalSelectSym('${s.sym}')">
+      <div><div class="modal-opt-sym">${s.sym}</div><div class="modal-opt-name">${s.name}</div></div>
+    </div>`).join("");
+  dd.classList.add("open");
+  modalSelectedSym=results[0].sym;
+}
+
+function modalSelectSym(sym){
+  modalSelectedSym=sym;
+  g("modalIn").value=sym;
+  g("modalDropdown").classList.remove("open");
+}
+
+function openModal(){g("addOverlay").classList.add("on");g("modalIn").value="";modalSelectedSym="";setTimeout(()=>g("modalIn").focus(),100);}
 function closeModal(){g("addOverlay").classList.remove("on");}
-function confirmAdd(){const sym=g("modalIn").value.trim().toUpperCase();if(!sym)return;if(S.stocks.find(s=>s.sym===sym)){showToast(sym+" 已在自选股中");closeModal();return;}if(S.plan==="free"&&S.stocks.length>=3){showToast("免费版最多3只，请升级Pro");return;}const cl=["#1e2e4a","#2a1a3a","#1a3a1a","#3a2a0a","#1a2040","#2a1a2a"],tc=["#7cb3f5","#c084fc","#4ade80","#fbbf24","#818cf8","#f9a8d4"];const i=S.stocks.length%6;S.stocks.push({sym,name:sym,cl:cl[i],tc:tc[i],p:100,c:0,pct:0});renderWatch();renderTicker();save();if(S.apiKey)fetchOne(sym,S.apiKey);showToast(sym+" 已添加");closeModal();}
-function renderTicker(){const el=g("tickerTrack");const items=[...S.stocks,...S.stocks];el.innerHTML=items.map(s=>'<div class="ti"><span class="ti-sym">'+s.sym+'</span><span>$'+s.p.toFixed(2)+'</span><span class="ti-chg '+(s.c>=0?"up":"dn")+'">'+(s.c>=0?"▲":"▼")+Math.abs(s.pct).toFixed(2)+'%</span></div>').join("");}
+function confirmAdd(){
+  const sym=(modalSelectedSym||g("modalIn").value.trim()).toUpperCase();
+  if(!sym)return;
+  if(S.stocks.find(s=>s.sym===sym)){showToast(sym+" 已在自选股中");closeModal();return;}
+  if(S.plan==="free"&&S.stocks.length>=3){showToast("免费版最多3只，请升级Pro");return;}
+  const db=STOCKS_DB.find(s=>s.sym===sym);
+  const cl=["#1e2e4a","#2a1a3a","#1a3a1a","#3a2a0a","#1a2040","#2a1a2a"],tc=["#7cb3f5","#c084fc","#4ade80","#fbbf24","#818cf8","#f9a8d4"];
+  const i=S.stocks.length%6;
+  S.stocks.push({sym,name:db?db.name:sym,cl:cl[i],tc:tc[i],p:100,c:0,pct:0});
+  renderWatch();renderTicker();save();
+  if(S.apiKey)fetchOne(sym,S.apiKey);
+  showToast(sym+" 已添加");closeModal();
+}
+
+// ── WATCHLIST ──
+function renderWatch(){
+  const el=g("watchRows");el.innerHTML="";
+  S.stocks.forEach(s=>{
+    const up=s.c>=0,hasAl=S.alerts.some(a=>a.sym===s.sym);
+    const row=document.createElement("div");row.className="wl-row";
+    row.innerHTML='<div class="s-ico" style="background:'+s.cl+';color:'+s.tc+'">'+s.sym.slice(0,2)+'</div>'
+      +'<div><div class="s-sym">'+s.sym+'</div><div class="s-nm">'+s.name+'</div></div>'
+      +'<div class="s-px">$'+s.p.toFixed(2)+'</div>'
+      +'<div class="s-ch '+(up?"up":"dn")+'">'+(up?"+":"")+s.pct.toFixed(2)+'%</div>'
+      +'<button class="bell-btn '+(hasAl?"on":"")+'" onclick="quickAlert(\''+s.sym+'\',event)">'
+      +'<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>';
+    el.appendChild(row);
+  });
+}
+
+function quickAlert(sym,e){
+  if(e)e.stopPropagation();
+  goPanel("Alerts");
+  selectedAlertSym=sym;
+  g("alSymIn").value=sym;
+  g("alPrice").focus();
+}
+
+// ── TICKER ──
+function renderTicker(){
+  const el=g("tickerTrack");
+  el.innerHTML=[...S.stocks,...S.stocks].map(s=>'<div class="ti"><span class="ti-sym">'+s.sym+'</span><span>$'+s.p.toFixed(2)+'</span><span class="ti-chg '+(s.c>=0?"up":"dn")+'">'+(s.c>=0?"▲":"▼")+Math.abs(s.pct).toFixed(2)+'%</span></div>').join("");
+}
+
+// ── MARKET ──
 function getET(){const n=new Date();return new Date(n.getTime()+n.getTimezoneOffset()*60000-5*3600000);}
-function checkMkt(){const et=getET(),h=et.getHours(),m=et.getMinutes(),day=et.getDay(),tot=h*60+m,L=T(),etStr=et.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});st("etNow",etStr);let status,dc;if(day===0||day===6){status=L.weekend;dc="closed";}else if(tot>=570&&tot<960){status=L.open;dc="open";}else if(tot>=240&&tot<570){status=L.pre;dc="pre";}else if(tot>=960&&tot<1200){status=L.after;dc="pre";}else{status=L.closed;dc="closed";}const dot=g("mktDot");if(dot)dot.className="md "+dc;st("mktTxt",status);["hPreSt","hRegSt","hAftSt"].forEach((id,i)=>{const ranges=[[240,570],[570,960],[960,1200]];const el=g(id);if(el){el.textContent=tot>=ranges[i][0]&&tot<ranges[i][1]?L.open:L.closed;el.className="hc-st "+(tot>=ranges[i][0]&&tot<ranges[i][1]?"open":"closed");}});st("hNowSt",etStr);}
-function toggleBc(){S.bcOn=!S.bcOn;g("bcSw").classList.toggle("on",S.bcOn);g("waveform").classList.toggle("on",S.bcOn);if(S.bcOn){st("bcSub","每 "+S.bcIntv+" 分钟");doSpeak();S.bcTimer=setInterval(doSpeak,S.bcIntv*60000);}else{st("bcSub",T().stopped);if(S.bcTimer)clearInterval(S.bcTimer);S.bcTimer=null;}}
-function setIntv(m,btn){S.bcIntv=m;document.querySelectorAll(".intv-btn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");if(S.bcOn){st("bcSub","每 "+m+" 分钟");if(S.bcTimer)clearInterval(S.bcTimer);S.bcTimer=setInterval(doSpeak,m*60000);}}
+function checkMkt(){
+  const et=getET(),h=et.getHours(),m=et.getMinutes(),day=et.getDay(),tot=h*60+m;
+  const etStr=et.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+  st("etNow",etStr);
+  let status,dc;
+  if(day===0||day===6){status="周末休市";dc="closed";}
+  else if(tot>=570&&tot<960){status="开盘中";dc="open";}
+  else if(tot>=240&&tot<570){status="盘前";dc="pre";}
+  else if(tot>=960&&tot<1200){status="盘后";dc="pre";}
+  else{status="已收盘";dc="closed";}
+  const dot=g("mktDot");if(dot)dot.className="md "+dc;
+  st("mktTxt",status);
+  [[240,570,"hPreSt"],[570,960,"hRegSt"],[960,1200,"hAftSt"]].forEach(([a,b,id])=>{
+    const el=g(id);if(!el)return;
+    el.textContent=tot>=a&&tot<b?"开盘中":"已收盘";
+    el.className="hc-st "+(tot>=a&&tot<b?"open":"closed");
+  });
+  st("hNowSt",etStr);
+}
+
+// ── 播报 & 自定义间隔 ──
+function setPreset(m,btn){
+  S.bcIntv=m;
+  document.querySelectorAll(".intv-btn").forEach(b=>b.classList.remove("on"));
+  btn.classList.add("on");
+  const sl=g("intvSlider");if(sl)sl.value=m;
+  g("intvVal").textContent=m.toFixed(1)+" 分钟";
+  if(S.bcOn)restartBc();
+  save();
+}
+function setCustomIntv(v){
+  S.bcIntv=parseFloat(v);
+  document.querySelectorAll(".intv-btn").forEach(b=>b.classList.remove("on"));
+  g("intvVal").textContent=parseFloat(v).toFixed(1)+" 分钟";
+  if(S.bcOn)restartBc();
+  save();
+}
+function restartBc(){if(S.bcTimer)clearInterval(S.bcTimer);S.bcTimer=setInterval(doSpeak,S.bcIntv*60000);}
+function toggleBc(){
+  S.bcOn=!S.bcOn;
+  g("bcSw").classList.toggle("on",S.bcOn);
+  g("waveform").classList.toggle("on",S.bcOn);
+  if(S.bcOn){st("bcSub","每 "+S.bcIntv.toFixed(1)+" 分钟");doSpeak();S.bcTimer=setInterval(doSpeak,S.bcIntv*60000);}
+  else{st("bcSub","已停止");if(S.bcTimer)clearInterval(S.bcTimer);S.bcTimer=null;}
+}
 function testBc(){doSpeak();}
-function doSpeak(){const g2=S.stocks.filter(s=>s.c>0).sort((a,b)=>b.pct-a.pct).slice(0,2),l=S.stocks.filter(s=>s.c<0).sort((a,b)=>a.pct-b.pct).slice(0,1);speak(T().bcText(g2,l));const now=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});st("lastBc",now+" — "+(g2.map(s=>s.sym+" +"+s.pct.toFixed(1)+"%").join("  ")||"无数据"));}
-function speak(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);if(S.selVoice)u.voice=S.selVoice;u.lang=S.lang==="zh"?"zh-CN":"en-US";u.rate=1.1;const wf=g("waveform");if(wf)wf.classList.add("on");u.onend=()=>{if(!S.bcOn&&wf)wf.classList.remove("on");};window.speechSynthesis.speak(u);}
+function doSpeak(){
+  const gn=S.stocks.filter(s=>s.c>0).sort((a,b)=>b.pct-a.pct).slice(0,2);
+  const ls=S.stocks.filter(s=>s.c<0).sort((a,b)=>a.pct-b.pct).slice(0,1);
+  let t="美股行情播报：";
+  gn.forEach(s=>{t+=s.sym+"，当前"+s.p.toFixed(2)+"美元，上涨"+s.pct.toFixed(2)+"个百分点；";});
+  ls.forEach(s=>{t+=s.sym+"，当前"+s.p.toFixed(2)+"美元，下跌"+Math.abs(s.pct).toFixed(2)+"个百分点；";});
+  speak(t);
+  const now=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});
+  st("lastBc",now+" — "+(gn.map(s=>s.sym+" +"+s.pct.toFixed(1)+"%").join("  ")||"行情平稳"));
+}
+function speak(text){
+  if(!window.speechSynthesis)return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  if(S.selVoice)u.voice=S.selVoice;
+  u.lang="zh-CN";u.rate=1.1;
+  const wf=g("waveform");if(wf)wf.classList.add("on");
+  u.onend=()=>{if(!S.bcOn&&wf)wf.classList.remove("on");};
+  window.speechSynthesis.speak(u);
+}
+
+// ── VOICES ──
 function loadVoices(){const load=()=>{S.voices=window.speechSynthesis.getVoices().filter(v=>v.lang.startsWith("zh")||v.lang.startsWith("en"));renderVoices();};if(window.speechSynthesis){load();window.speechSynthesis.onvoiceschanged=load;}}
-function renderVoices(){const el=g("voiceGrid");if(!el)return;const show=S.voices.slice(0,6);if(!show.length){el.innerHTML='<div style="font-size:13px;color:var(--tx3)">无可用语音</div>';return;}el.innerHTML=show.map((v,i)=>'<div class="vc '+(i===0?"on":"")+'" onclick="selVoice('+i+',this)"><div class="vc-name">'+v.name.slice(0,18)+'</div><div class="vc-lang">'+v.lang+'</div></div>').join("");S.selVoice=show[0]||null;}
+function renderVoices(){const el=g("voiceGrid");if(!el)return;const show=S.voices.slice(0,6);if(!show.length){el.innerHTML='<div style="font-size:13px;color:var(--tx3)">无可用语音（浏览器限制）</div>';return;}el.innerHTML=show.map((v,i)=>'<div class="vc '+(i===0?"on":"")+'" onclick="selVoice('+i+',this)"><div class="vc-name">'+v.name.slice(0,18)+'</div><div class="vc-lang">'+v.lang+'</div></div>').join("");S.selVoice=show[0]||null;}
 function selVoice(i,el){document.querySelectorAll(".vc").forEach(c=>c.classList.remove("on"));el.classList.add("on");S.selVoice=S.voices[i]||null;}
-function addAlert(){const sym=g("alSym").value,cond=g("alCond").value,price=parseFloat(g("alPrice").value);if(!price||price<=0){showToast("请输入有效价格");return;}S.alerts.push({sym,cond,price,id:Date.now()});g("alPrice").value="";renderAlerts();save();showToast(sym+" $"+price.toFixed(2)+" 提醒已设置");badge();}
-function removeAlert(id){S.alerts=S.alerts.filter(a=>a.id!==id);renderAlerts();save();badge();}
-function renderAlerts(){const el=g("alList");if(!el)return;if(!S.alerts.length){el.innerHTML='<div style="padding:16px;font-size:14px;color:var(--tx3);text-align:center">'+T().noAl+'</div>';badge();return;}el.innerHTML=S.alerts.map(a=>'<div class="al-item"><div class="al-l"><span class="al-sym">'+a.sym+'</span><span class="al-cd">'+(a.cond==="above"?"≥":"≤")+'</span><span class="al-px">$'+a.price.toFixed(2)+'</span></div><button class="al-del" onclick="removeAlert('+a.id+')">×</button></div>').join("");badge();}
-function badge(){const b=g("alBadge");if(!b)return;if(S.alerts.length){b.textContent=S.alerts.length;b.style.display="flex";}else b.style.display="none";}
-function checkAlerts(){S.alerts.forEach(a=>{const s=S.stocks.find(x=>x.sym===a.sym);if(!s)return;if((a.cond==="above"&&s.p>=a.price)||(a.cond==="below"&&s.p<=a.price)){const msg=T().alText(s,a);speak(msg);const el=g("alHit");if(el){el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",6000);}if(Notification.permission==="granted")new Notification("StockCast",{body:msg});S.alerts=S.alerts.filter(x=>x.id!==a.id);renderAlerts();renderWatch();save();}});}
-function connectFH(){const k=g("apiIn").value.trim();if(!k){showToast("请输入 API Key");return;}const btn=g("apiBtn");btn.textContent="连接中...";fetch("https://finnhub.io/api/v1/quote?symbol=AAPL&token="+k).then(r=>r.json()).then(d=>{if(d&&d.c){S.apiKey=k;S.connected=true;save();btn.textContent="已连接 ✓";const cd=g("connDot");if(cd)cd.classList.add("live");st("connTxt","Finnhub — 实时数据");fetchAll(k);setInterval(()=>fetchAll(k),60000);showToast("已连接 Finnhub ✓");}else{btn.textContent="Key 无效";setTimeout(()=>btn.textContent="连接",2000);}}).catch(()=>{btn.textContent="连接失败";setTimeout(()=>btn.textContent="连接",2000);});}
+
+// ── ALERTS ──
+function addAlert(){
+  const sym=selectedAlertSym||g("alSymIn").value.trim().toUpperCase();
+  const cond=g("alCond").value;
+  const price=parseFloat(g("alPrice").value);
+  if(!sym){showToast("请先选择股票");g("alSymIn").focus();return;}
+  if(!price||price<=0){showToast("请输入有效价格");return;}
+  S.alerts.push({sym,cond,price,id:Date.now(),active:true});
+  g("alPrice").value="";
+  g("alSymIn").value="";
+  selectedAlertSym="";
+  renderAlerts();save();
+  showToast(sym+" $"+price.toFixed(2)+" 提醒已设置 ✓");
+  updateBadge();
+}
+
+function removeAlert(id){S.alerts=S.alerts.filter(a=>a.id!==id);renderAlerts();save();updateBadge();}
+
+function clearAlerts(){if(!S.alerts.length)return;S.alerts=[];renderAlerts();save();updateBadge();showToast("已清空全部提醒");}
+
+function renderAlerts(){
+  const el=g("alList");if(!el)return;
+  st("alCount",S.alerts.length);
+  if(!S.alerts.length){
+    el.innerHTML='<div class="al-empty">暂无价格提醒<br><span style="font-size:12px;color:var(--tx3)">搜索股票并设置触发价格</span></div>';
+    updateBadge();return;
+  }
+  el.innerHTML=S.alerts.map(a=>{
+    const s=S.stocks.find(x=>x.sym===a.sym);
+    const curPx=s?'当前 $'+s.p.toFixed(2):'';
+    const condLabel=a.cond==="above"?"上涨触发":"下跌触发";
+    return '<div class="al-item">'
+      +'<div class="al-ico"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>'
+      +'<div class="al-body">'
+      +'<div style="display:flex;align-items:center;gap:8px"><span class="al-sym">'+a.sym+'</span><span class="al-cond-tag '+(a.cond==="above"?"above":"below")+'">'+condLabel+'</span></div>'
+      +'<div class="al-desc"><span class="al-price-tag">$'+a.price.toFixed(2)+'</span>'+(curPx?'· '+curPx:'')+'</div>'
+      +'</div>'
+      +'<button class="al-del" onclick="removeAlert('+a.id+')">×</button>'
+      +'</div>';
+  }).join("");
+  updateBadge();
+}
+
+function updateBadge(){
+  const b=g("alBadge");if(!b)return;
+  if(S.alerts.length){b.textContent=S.alerts.length;b.style.display="flex";}
+  else b.style.display="none";
+}
+
+function checkAlerts(){
+  S.alerts.forEach(a=>{
+    const s=S.stocks.find(x=>x.sym===a.sym);if(!s)return;
+    if((a.cond==="above"&&s.p>=a.price)||(a.cond==="below"&&s.p<=a.price)){
+      const msg="提醒："+s.sym+" 已"+(a.cond==="above"?"上涨至":"下跌至")+" $"+s.p.toFixed(2)+"，触发 $"+a.price.toFixed(2)+" 价位";
+      speak(msg);
+      const el=g("alHit");if(el){el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",6000);}
+      if(Notification.permission==="granted")new Notification("StockCast — "+s.sym,{body:msg});
+      sendTelegram(msg);
+      S.alerts=S.alerts.filter(x=>x.id!==a.id);
+      renderAlerts();renderWatch();save();
+    }
+  });
+}
+
+// ── TELEGRAM ──
+function setupTelegram(){g("tgOverlay").classList.add("on");if(S.tgToken)g("tgToken").value=S.tgToken;if(S.tgChatId)g("tgChatId").value=S.tgChatId;}
+function closeTg(){g("tgOverlay").classList.remove("on");}
+function saveTg(){
+  const token=g("tgToken").value.trim(),chatId=g("tgChatId").value.trim();
+  if(!token||!chatId){showToast("请填写 Token 和 Chat ID");return;}
+  S.tgToken=token;S.tgChatId=chatId;save();
+  sendTelegram("✅ StockCast 连接成功！价格提醒将通过此 Bot 推送到你的 Telegram。").then(ok=>{
+    if(ok){showToast("Telegram 连接成功 ✓");closeTg();}
+    else showToast("连接失败，请检查 Token 和 Chat ID");
+  });
+}
+async function sendTelegram(msg){
+  if(!S.tgToken||!S.tgChatId)return false;
+  try{
+    const r=await fetch("https://api.telegram.org/bot"+S.tgToken+"/sendMessage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:S.tgChatId,text:"📈 "+msg})});
+    return r.ok;
+  }catch(e){return false;}
+}
+
+// ── FINNHUB ──
+function connectFH(){const k=g("apiIn").value.trim();if(!k){showToast("请输入 API Key");return;}const btn=g("apiBtn");btn.textContent="连接中...";fetch("https://finnhub.io/api/v1/quote?symbol=AAPL&token="+k).then(r=>r.json()).then(d=>{if(d&&d.c){S.apiKey=k;S.connected=true;save();btn.textContent="已连接 ✓";const cd=g("connDot");if(cd)cd.classList.add("live");st("connTxt","Finnhub — 实时数据");fetchAll(k);setInterval(()=>fetchAll(k),60000);showToast("Finnhub 已连接 ✓");}else{btn.textContent="Key 无效";setTimeout(()=>btn.textContent="连接",2000);}}).catch(()=>{btn.textContent="连接失败";setTimeout(()=>btn.textContent="连接",2000);});}
 function reconnectFH(){const el=g("apiIn");if(el)el.value=S.apiKey;fetchAll(S.apiKey);}
 function fetchAll(k){S.stocks.forEach((s,i)=>setTimeout(()=>fetchOne(s.sym,k),i*350));}
-function fetchOne(sym,k){fetch("https://finnhub.io/api/v1/quote?symbol="+sym+"&token="+k).then(r=>r.json()).then(d=>{if(d&&d.c){const s=S.stocks.find(x=>x.sym===sym);if(s){s.p=d.c;s.c=d.c-d.pc;s.pct=((d.c-d.pc)/d.pc)*100;}renderWatch();renderTicker();}}).catch(()=>{});}
+function fetchOne(sym,k){fetch("https://finnhub.io/api/v1/quote?symbol="+sym+"&token="+k).then(r=>r.json()).then(d=>{if(d&&d.c){const s=S.stocks.find(x=>x.sym===sym);if(s){s.p=d.c;s.c=d.c-d.pc;s.pct=((d.c-d.pc)/d.pc)*100;}renderWatch();renderTicker();checkAlerts();}}).catch(()=>{});}
+
+// ── PRICE DRIFT ──
 function startDrift(){setInterval(()=>{if(S.connected)return;S.stocks.forEach(s=>{const d=(Math.random()-.48)*.9;s.p=Math.max(1,s.p+d);s.c+=d;s.pct=(s.c/(s.p-s.c))*100;});renderWatch();renderTicker();checkAlerts();},3000);}
+
+// ── PUSH ──
 function reqPush(){if(!("Notification"in window)){showToast("浏览器不支持通知");return;}Notification.requestPermission().then(p=>{const btn=g("pushBtn");if(p==="granted"){btn.textContent="🔔 Push 通知已开启";btn.classList.add("ok");showToast("Push 通知已开启 ✓");}else showToast("未授权通知权限");});}
-function updateSettings(){if(!S.user)return;st("uEmail",S.user);const pl={free:"免费版",pro:"Pro 订阅",annual:"年付 Pro"},pt={free:"FREE",pro:"PRO",annual:"ANNUAL"},pc={free:"free",pro:"pro",annual:"annual"};st("uPlan",pl[S.plan]||"免费版");const tag=g("pTag");if(tag){tag.textContent=pt[S.plan]||"FREE";tag.className="ptag "+(pc[S.plan]||"free");}const apiEl=g("apiIn");if(S.apiKey&&apiEl)apiEl.value=S.apiKey;if(S.connected){const cd=g("connDot");if(cd)cd.classList.add("live");st("connTxt","Finnhub — 实时数据");const ab=g("apiBtn");if(ab)ab.textContent="已连接 ✓";}if(Notification.permission==="granted"){const pb=g("pushBtn");if(pb){pb.textContent="🔔 Push 通知已开启";pb.classList.add("ok");}}}
+
+// ── SETTINGS ──
+function updateSettings(){
+  if(!S.user)return;
+  st("uEmail",S.user);
+  const pl={free:"免费版",pro:"Pro 订阅",annual:"年付 Pro"},pt={free:"FREE",pro:"PRO",annual:"ANNUAL"},pc={free:"free",pro:"pro",annual:"annual"};
+  st("uPlan",pl[S.plan]||"免费版");
+  const tag=g("pTag");if(tag){tag.textContent=pt[S.plan]||"FREE";tag.className="ptag "+(pc[S.plan]||"free");}
+  if(S.apiKey){const ai=g("apiIn");if(ai)ai.value=S.apiKey;}
+  if(S.connected){const cd=g("connDot");if(cd)cd.classList.add("live");st("connTxt","Finnhub — 实时数据");const ab=g("apiBtn");if(ab)ab.textContent="已连接 ✓";}
+  if(Notification.permission==="granted"){const pb=g("pushBtn");if(pb){pb.textContent="🔔 Push 通知已开启";pb.classList.add("ok");}}
+}
+
+function toggleLang(){S.lang=S.lang==="zh"?"en":"zh";g("langBtn").textContent=S.lang==="zh"?"中":"EN";save();}
+
 function showToast(msg){const el=g("toast");if(!el)return;el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400);}
 
-// boot 最后定义，DOM 已完全就绪
+// ── BOOT ──
 function boot(){
   try{
     const ss=localStorage.getItem("sc_s");
@@ -489,9 +999,8 @@ function boot(){
   showV("auth");
 }
 
-// 动画结束 + 超时双保险
 const spFill=document.getElementById("spFill");
-if(spFill) spFill.addEventListener("animationend",()=>setTimeout(boot,200));
+if(spFill)spFill.addEventListener("animationend",()=>setTimeout(boot,200));
 setTimeout(boot,2500);
 </script>
 </body>
