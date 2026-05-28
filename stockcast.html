@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0e1a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="StockCast">
+<title>StockCast — 美股语音播报</title>
+<script>
+const md={name:"StockCast 美股播报",short_name:"StockCast",start_url:"./",display:"standalone",background_color:"#0a0e1a",theme_color:"#0a0e1a",icons:[{src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%230a0e1a'/><polyline points='160,60 110,110 80,80 32,128' stroke='%233b7dd8' stroke-width='14' fill='none' stroke-linecap='round'/></svg>",sizes:"192x192",type:"image/svg+xml"}]};
+const mb=new Blob([JSON.stringify(md)],{type:"application/json"});
+const ml=document.createElement("link");ml.rel="manifest";ml.href=URL.createObjectURL(mb);document.head.appendChild(ml);
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0a0e1a;--bg2:#0d1526;--bg3:#080f1c;
+  --bd:#1e2d4a;--bd2:#2a3d5a;
+  --tx:#e8eaf6;--tx2:#8a9ab8;--tx3:#4a6080;
+  --bl:#3b7dd8;--bl2:#1a3060;--bl3:#7cb3f5;
+  --gn:#4ade80;--gn2:#0f2e1a;
+  --rd:#f87171;--rd2:#2e0f0f;
+  --yl:#facc15;
+  --r:10px;--r2:14px;
+  --mono:"DM Mono",ui-monospace,monospace;
+  --sans:"Syne","Segoe UI",system-ui,sans-serif;
+}
+html{-webkit-text-size-adjust:100%;}
+body{
+  font-family:var(--sans);background:var(--bg);color:var(--tx);
+  height:100svh;overflow:hidden;
+  display:flex;flex-direction:column;
+  -webkit-tap-highlight-color:transparent;
+}
+button{font-family:var(--sans);cursor:pointer;border:none;background:none;-webkit-appearance:none;}
+input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appearance:none;}
+
+/* VIEWS */
+.view{display:none;flex-direction:column;height:100svh;}
+.view.active{display:flex;}
+#auth,#paywall{overflow-y:auto;}
+
+/* SPLASH */
+#splash{align-items:center;justify-content:center;gap:20px;background:var(--bg);}
+.sp-icon{width:80px;height:80px;border-radius:20px;background:var(--bl2);border:1px solid var(--bl);display:flex;align-items:center;justify-content:center;}
+.sp-icon svg{width:44px;height:44px;}
+.sp-title{font-size:32px;font-weight:800;letter-spacing:-1px;}
+.sp-title span{color:var(--bl);}
+.sp-sub{font-size:14px;color:var(--tx3);font-family:var(--mono);}
+.sp-bar{width:160px;height:2px;background:var(--bd);border-radius:2px;overflow:hidden;margin-top:4px;}
+.sp-fill{height:100%;background:var(--bl);animation:spLoad 1.8s ease forwards;}
+@keyframes spLoad{0%{width:0}60%{width:70%}100%{width:100%}}
+
+/* AUTH */
+#auth{justify-content:center;align-items:center;padding:32px 20px;}
+.auth-box{width:100%;max-width:400px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:28px 20px;}
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+.auth-logo-ico{width:40px;height:40px;border-radius:10px;background:var(--bl2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;}
+.auth-logo-ico svg{width:22px;height:22px;}
+.auth-logo-txt{font-size:20px;font-weight:800;letter-spacing:-0.5px;}
+.auth-logo-txt span{color:var(--bl);}
+.auth-tabs{display:flex;background:var(--bg3);border-radius:var(--r);padding:4px;gap:4px;margin-bottom:22px;}
+.auth-tab{flex:1;padding:11px;border-radius:8px;font-size:15px;font-weight:700;color:var(--tx3);transition:all .15s;}
+.auth-tab.on{background:var(--bg2);color:var(--tx);}
+.fl{font-size:12px;color:var(--tx3);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:7px;}
+.fi{width:100%;padding:14px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:16px;margin-bottom:14px;transition:border-color .15s;}
+.fi:focus{border-color:var(--bl);}
+.fi::placeholder{color:var(--tx3);}
+.auth-btn{width:100%;padding:15px;border-radius:var(--r);background:var(--bl);color:#fff;font-size:16px;font-weight:700;}
+.auth-div{display:flex;align-items:center;gap:12px;margin:16px 0;font-size:13px;color:var(--tx3);}
+.auth-div::before,.auth-div::after{content:"";flex:1;height:1px;background:var(--bd);}
+.demo-btn{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--bd2);color:var(--tx2);font-size:14px;font-weight:600;}
+.auth-err{font-size:13px;color:var(--rd);padding:10px 12px;background:var(--rd2);border-radius:var(--r);margin-bottom:12px;display:none;}
+
+/* PAYWALL */
+#paywall{padding:28px 20px;}
+.pw-inner{max-width:440px;margin:0 auto;width:100%;}
+.pw-head{text-align:center;margin-bottom:24px;}
+.pw-title{font-size:26px;font-weight:800;letter-spacing:-0.5px;margin-bottom:6px;}
+.pw-sub{font-size:13px;color:var(--tx3);font-family:var(--mono);}
+.plan-list{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:20px;}
+.plan-card{background:var(--bg2);border:2px solid var(--bd);border-radius:var(--r2);padding:18px 16px;cursor:pointer;transition:border-color .15s;}
+.plan-card.sel{border-color:var(--bl);}
+.plan-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.plan-name{font-size:13px;color:var(--tx3);text-transform:uppercase;letter-spacing:1px;}
+.plan-badge{background:var(--bl);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;}
+.plan-price{font-size:28px;font-weight:800;letter-spacing:-0.5px;}
+.plan-price span{font-size:14px;font-weight:400;color:var(--tx3);}
+.plan-feats{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.pf{font-size:12px;color:var(--tx2);background:var(--bg3);padding:4px 10px;border-radius:20px;}
+.stripe-row{display:flex;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:13px 14px;margin-bottom:10px;}
+.stripe-lbl{font-size:14px;color:var(--tx3);flex:1;}
+.stripe-in{background:transparent;border:none;color:var(--tx);font-size:15px;font-family:var(--mono);width:160px;text-align:right;}
+.stripe-in::placeholder{color:var(--tx3);}
+.pay-btn{width:100%;padding:16px;border-radius:var(--r);background:var(--bl);color:#fff;font-size:16px;font-weight:700;margin-bottom:14px;}
+.pay-note{text-align:center;font-size:13px;color:var(--tx3);line-height:1.7;}
+.pay-note a{color:var(--bl3);}
+
+/* APP */
+#app{flex:1;}
+.ticker-band{background:var(--bg2);border-bottom:1px solid var(--bd);padding:8px 0;overflow:hidden;white-space:nowrap;flex-shrink:0;}
+.ticker-track{display:inline-flex;gap:28px;animation:tick 28s linear infinite;}
+.ti{font-family:var(--mono);font-size:12px;display:flex;gap:7px;}
+.ti-sym{color:var(--bl3);font-weight:500;}
+.ti-chg.up{color:var(--gn);}
+.ti-chg.dn{color:var(--rd);}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.app-bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--bd);flex-shrink:0;min-height:56px;}
+.app-logo{display:flex;align-items:center;gap:8px;}
+.app-logo-ico{width:34px;height:34px;border-radius:9px;background:var(--bl2);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;}
+.app-logo-ico svg{width:19px;height:19px;}
+.app-logo-txt{font-size:18px;font-weight:800;letter-spacing:-0.3px;}
+.app-logo-txt span{color:var(--bl);}
+.bar-right{display:flex;align-items:center;gap:8px;}
+.mkt-pill{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:16px;background:var(--bg2);border:1px solid var(--bd);font-size:11px;font-family:var(--mono);}
+.md{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.md.open{background:var(--gn);box-shadow:0 0 6px var(--gn);animation:blink 2s infinite;}
+.md.pre{background:var(--yl);}
+.md.closed{background:var(--rd);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.icon-btn{min-width:38px;height:38px;border-radius:9px;border:1px solid var(--bd);color:var(--tx3);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:4px;padding:0 9px;}
+.icon-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+
+/* PANELS */
+.panels{flex:1;min-height:0;overflow:hidden;position:relative;}
+.panel{display:none;position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px 24px;}
+.panel.on{display:block;}
+.sec{font-size:11px;font-weight:700;letter-spacing:1.4px;color:var(--tx3);text-transform:uppercase;margin-bottom:10px;}
+
+/* WATCHLIST */
+.wl-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;}
+.wl-hd{display:grid;grid-template-columns:40px 1fr 76px 62px 38px;gap:5px;padding:10px 12px;border-bottom:1px solid var(--bd);}
+.wl-hd span{font-size:11px;color:var(--tx3);}
+.wl-row{display:grid;grid-template-columns:40px 1fr 76px 62px 38px;gap:5px;padding:13px 12px;align-items:center;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .12s;}
+.wl-row:last-child{border-bottom:none;}
+.wl-row:active{background:var(--bg3);}
+.s-ico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;font-family:var(--mono);}
+.s-sym{font-size:14px;font-weight:700;line-height:1.2;}
+.s-nm{font-size:11px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-px{font-family:var(--mono);font-size:13px;font-weight:500;text-align:right;}
+.s-ch{font-family:var(--mono);font-size:11px;padding:4px 6px;border-radius:5px;text-align:center;white-space:nowrap;}
+.s-ch.up{background:var(--gn2);color:var(--gn);}
+.s-ch.dn{background:var(--rd2);color:var(--rd);}
+.bell-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--bd);color:var(--tx3);display:flex;align-items:center;justify-content:center;transition:all .12s;}
+.bell-btn svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;}
+.bell-btn.on{background:var(--bl2);border-color:var(--bl);color:var(--bl3);}
+.add-row{width:100%;margin-top:10px;padding:14px;border:1.5px dashed var(--bd2);border-radius:var(--r);color:var(--tx3);font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:7px;}
+.add-row svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;}
+
+/* BROADCAST */
+.bc-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:18px 16px;margin-bottom:14px;}
+.bc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.bc-info .bc-title{font-size:16px;font-weight:700;}
+.bc-info .bc-sub{font-size:13px;color:var(--tx3);margin-top:3px;}
+.sw{width:52px;height:30px;background:var(--bd);border-radius:15px;position:relative;cursor:pointer;border:1px solid var(--bd2);transition:background .2s;flex-shrink:0;}
+.sw.on{background:var(--bl);border-color:var(--bl);}
+.sw-k{position:absolute;width:24px;height:24px;background:var(--tx);border-radius:50%;top:2px;left:2px;transition:transform .2s;}
+.sw.on .sw-k{transform:translateX(22px);}
+.waveform{display:flex;align-items:center;justify-content:center;gap:4px;height:36px;margin:12px 0;}
+.wb{width:4px;background:var(--bl);border-radius:2px;opacity:.2;height:6px;}
+.waveform.on .wb{opacity:1;}
+.waveform.on .wb:nth-child(1){animation:wv .7s ease-in-out infinite 0s;}
+.waveform.on .wb:nth-child(2){animation:wv .7s ease-in-out infinite .08s;}
+.waveform.on .wb:nth-child(3){animation:wv .7s ease-in-out infinite .16s;}
+.waveform.on .wb:nth-child(4){animation:wv .7s ease-in-out infinite .24s;}
+.waveform.on .wb:nth-child(5){animation:wv .7s ease-in-out infinite .32s;}
+.waveform.on .wb:nth-child(6){animation:wv .7s ease-in-out infinite .24s;}
+.waveform.on .wb:nth-child(7){animation:wv .7s ease-in-out infinite .16s;}
+.waveform.on .wb:nth-child(8){animation:wv .7s ease-in-out infinite .08s;}
+.waveform.on .wb:nth-child(9){animation:wv .7s ease-in-out infinite 0s;}
+@keyframes wv{0%,100%{height:5px}50%{height:28px}}
+.last-bc{font-family:var(--mono);font-size:13px;color:var(--tx3);background:var(--bg3);border-radius:8px;padding:10px 12px;min-height:40px;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.5;}
+.intv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px;}
+.intv-btn{padding:11px 6px;border-radius:8px;border:1px solid var(--bd);color:var(--tx3);font-size:13px;font-weight:600;text-align:center;transition:all .12s;}
+.intv-btn.on{background:var(--bl2);border-color:var(--bl);color:var(--bl3);}
+.test-btn{width:100%;padding:13px;margin-top:10px;border:1.5px dashed var(--bd2);border-radius:var(--r);color:var(--tx3);font-size:14px;font-weight:600;}
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+.vc{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);padding:12px;cursor:pointer;transition:border-color .12s;}
+.vc.on{border-color:var(--bl);}
+.vc-name{font-size:13px;font-weight:700;color:var(--tx);}
+.vc-lang{font-size:11px;color:var(--tx3);margin-top:3px;}
+
+/* ALERTS */
+.al-form{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:14px;}
+.al-row{display:flex;gap:8px;margin-bottom:10px;align-items:center;}
+.af-sel{flex:1;padding:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:15px;}
+.af-sel:focus{border-color:var(--bl);}
+.af-in{width:96px;padding:12px 10px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:15px;}
+.af-in:focus{border-color:var(--bl);}
+.add-al-btn{width:100%;padding:14px;border-radius:var(--r);background:var(--bl2);border:1px solid var(--bl);color:var(--bl3);font-size:15px;font-weight:700;}
+.al-list{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);overflow:hidden;}
+.al-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd);}
+.al-item:last-child{border-bottom:none;}
+.al-l{display:flex;gap:10px;align-items:center;}
+.al-sym{font-family:var(--mono);font-size:15px;color:var(--bl3);font-weight:500;}
+.al-cd{font-size:14px;color:var(--tx3);}
+.al-px{font-family:var(--mono);font-size:15px;color:var(--tx);}
+.al-del{width:38px;height:38px;border-radius:8px;border:1px solid var(--bd);color:var(--tx3);font-size:20px;display:flex;align-items:center;justify-content:center;}
+.al-hit{background:var(--gn2);border:1px solid var(--gn);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;font-size:14px;color:var(--gn);display:none;}
+
+/* MARKET HOURS */
+.hrs-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.hc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;border-left:3px solid var(--bd);}
+.hc.active-s{border-left-color:var(--gn);}
+.hc.pre-s{border-left-color:var(--yl);}
+.hc-lbl{font-size:11px;color:var(--tx3);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:5px;}
+.hc-time{font-family:var(--mono);font-size:13px;color:var(--tx);}
+.hc-st{font-size:12px;margin-top:5px;}
+.hc-st.open{color:var(--gn);}
+.hc-st.closed{color:var(--tx3);}
+.info-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;}
+
+/* SETTINGS */
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;}
+.sr-lbl{font-size:14px;color:var(--tx);}
+.sr-sub{font-size:12px;color:var(--tx3);margin-top:3px;}
+.api-card{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2);padding:16px;margin-bottom:10px;}
+.api-in-row{display:flex;gap:8px;margin-top:10px;}
+.api-in{flex:1;padding:12px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:13px;font-family:var(--mono);}
+.api-in:focus{border-color:var(--bl);}
+.api-in::placeholder{color:var(--tx3);}
+.api-btn{padding:12px 16px;border-radius:var(--r);background:var(--gn2);border:1px solid var(--gn);color:var(--gn);font-size:13px;font-weight:700;white-space:nowrap;}
+.conn-row{display:flex;align-items:center;gap:7px;margin-top:9px;}
+.cd{width:8px;height:8px;border-radius:50%;background:var(--tx3);flex-shrink:0;}
+.cd.live{background:var(--gn);box-shadow:0 0 6px var(--gn);}
+.ct{font-size:12px;color:var(--tx3);font-family:var(--mono);}
+.push-btn{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--bd2);color:var(--tx2);font-size:14px;font-weight:600;}
+.push-btn.ok{background:var(--gn2);border-color:var(--gn);color:var(--gn);}
+.logout-btn{width:100%;padding:14px;border-radius:var(--r);border:1px solid var(--rd2);color:var(--rd);font-size:14px;font-weight:600;margin-top:8px;}
+.ptag{font-size:11px;padding:4px 10px;border-radius:10px;font-weight:700;letter-spacing:0.5px;}
+.ptag.free{background:var(--bd);color:var(--tx3);}
+.ptag.pro{background:var(--bl2);color:var(--bl3);}
+.ptag.annual{background:var(--gn2);color:var(--gn);}
+
+/* BOTTOM NAV */
+.bot-nav{display:flex;border-top:1px solid var(--bd);background:var(--bg2);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom);}
+.nb{flex:1;padding:10px 4px 12px;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--tx3);font-size:11px;letter-spacing:0.3px;transition:color .15s;min-height:58px;}
+.nb svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.nb.on{color:var(--bl3);}
+.nb-ico{position:relative;}
+.nb-badge{position:absolute;top:-3px;right:-6px;min-width:16px;height:16px;border-radius:8px;background:var(--rd);font-size:9px;color:#fff;display:none;align-items:center;justify-content:center;padding:0 3px;}
+
+/* MODAL */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);align-items:flex-end;justify-content:center;z-index:100;}
+.overlay.on{display:flex;}
+.modal{width:100%;max-width:480px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r2) var(--r2) 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));}
+.modal-handle{width:36px;height:4px;background:var(--bd2);border-radius:2px;margin:0 auto 16px;}
+.modal-title{font-size:17px;font-weight:700;margin-bottom:14px;}
+.modal-in{width:100%;padding:14px;background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r);color:var(--tx);font-size:17px;font-family:var(--mono);margin-bottom:10px;text-transform:uppercase;}
+.modal-in:focus{border-color:var(--bl);}
+.modal-hint{font-size:13px;color:var(--tx3);margin-bottom:14px;font-family:var(--mono);}
+.modal-btns{display:flex;gap:10px;}
+.modal-cancel{flex:1;padding:14px;border-radius:var(--r);border:1px solid var(--bd2);color:var(--tx3);font-size:15px;}
+.modal-confirm{flex:2;padding:14px;border-radius:var(--r);background:var(--bl);color:#fff;font-size:15px;font-weight:700;}
+
+/* TOAST */
+.toast{position:fixed;bottom:calc(70px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(12px);background:var(--bg2);border:1px solid var(--bd2);border-radius:22px;padding:11px 20px;font-size:14px;color:var(--tx);white-space:nowrap;opacity:0;transition:all .28s;z-index:200;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* RESPONSIVE */
+@media(min-width:520px){
+  .wl-hd,.wl-row{grid-template-columns:42px 1fr 88px 70px 42px;}
+  .hrs-grid{grid-template-columns:repeat(4,1fr);}
+  .plan-list{grid-template-columns:repeat(3,1fr);}
+  .overlay{align-items:center;}
+  .modal{border-radius:var(--r2);max-width:380px;}
+  .modal-handle{display:none;}
+}
+@media(max-width:374px){
+  .app-bar{padding:10px 12px;}
+  .panel{padding:12px 12px 24px;}
+  .mkt-pill{display:none;}
+  .wl-hd,.wl-row{grid-template-columns:34px 1fr 68px 58px 34px;}
+  .s-px{font-size:12px;}
+  .intv-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash" class="view active">
+  <div class="sp-icon">
+    <svg viewBox="0 0 44 44" fill="none" stroke="#3b7dd8" stroke-width="2.8" stroke-linecap="round">
+      <polyline points="40,11 25,26 16,17 4,29"/>
+      <polyline points="31,11 40,11 40,20"/>
+    </svg>
+  </div>
+  <div class="sp-title">Stock<span>Cast</span></div>
+  <div class="sp-sub">美股语音播报器</div>
+  <div class="sp-bar"><div class="sp-fill"></div></div>
+</div>
+
+<!-- AUTH -->
+<div id="auth" class="view">
+  <div class="auth-box">
+    <div class="auth-logo">
+      <div class="auth-logo-ico">
+        <svg viewBox="0 0 44 44" fill="none" stroke="#3b7dd8" stroke-width="2.8" stroke-linecap="round">
+          <polyline points="40,11 25,26 16,17 4,29"/>
+          <polyline points="31,11 40,11 40,20"/>
+        </svg>
+      </div>
+      <div class="auth-logo-txt">Stock<span>Cast</span></div>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab on" onclick="switchTab('login')">登录</button>
+      <button class="auth-tab" onclick="switchTab('register')">注册</button>
+    </div>
+    <div id="authErr" class="auth-err"></div>
+    <div id="loginF">
+      <div class="fl">邮箱</div>
+      <input class="fi" id="lEmail" type="email" placeholder="your@email.com" autocomplete="email">
+      <div class="fl">密码</div>
+      <input class="fi" id="lPwd" type="password" placeholder="••••••••" autocomplete="current-password">
+      <button class="auth-btn" onclick="doLogin()">登录</button>
+    </div>
+    <div id="regF" style="display:none">
+      <div class="fl">邮箱</div>
+      <input class="fi" id="rEmail" type="email" placeholder="your@email.com" autocomplete="email">
+      <div class="fl">密码</div>
+      <input class="fi" id="rPwd" type="password" placeholder="至少8位" autocomplete="new-password">
+      <div class="fl">确认密码</div>
+      <input class="fi" id="rPwd2" type="password" placeholder="再次输入" autocomplete="new-password">
+      <button class="auth-btn" onclick="doRegister()">创建账号</button>
+    </div>
+    <div class="auth-div">或</div>
+    <button class="demo-btn" onclick="demoLogin()">体验演示账号（无需注册）</button>
+  </div>
+</div>
+
+<!-- PAYWALL -->
+<div id="paywall" class="view">
+  <div class="pw-inner">
+    <div class="pw-head">
+      <div class="pw-title">选择订阅计划</div>
+      <div class="pw-sub">7天免费试用，随时取消</div>
+    </div>
+    <div class="plan-list">
+      <div class="plan-card" id="pFree" onclick="selPlan('free')">
+        <div class="plan-top"><div class="plan-name">免费</div></div>
+        <div class="plan-price">$0<span>/月</span></div>
+        <div class="plan-feats"><span class="pf">3只股票</span><span class="pf">15分钟延迟</span><span class="pf">语音播报</span></div>
+      </div>
+      <div class="plan-card sel" id="pPro" onclick="selPlan('pro')">
+        <div class="plan-top"><div class="plan-name">Pro</div><div class="plan-badge">推荐</div></div>
+        <div class="plan-price">$19.99<span>/月</span></div>
+        <div class="plan-feats"><span class="pf">无限自选股</span><span class="pf">实时数据</span><span class="pf">价格提醒</span><span class="pf">盘前盘后</span><span class="pf">Push通知</span></div>
+      </div>
+      <div class="plan-card" id="pAnnual" onclick="selPlan('annual')">
+        <div class="plan-top"><div class="plan-name">年付 <span style="color:var(--gn);font-size:11px">省33%</span></div></div>
+        <div class="plan-price">$159.99<span>/年</span></div>
+        <div class="plan-feats"><span class="pf">Pro全功能</span><span class="pf">$13.3/月</span><span class="pf">优先支持</span></div>
+      </div>
+    </div>
+    <div id="pwPay" style="display:none">
+      <div class="stripe-row">
+        <span class="stripe-lbl">卡号（演示）</span>
+        <input class="stripe-in" type="text" maxlength="19" placeholder="4242 4242 4242 4242" oninput="fmtCard(this)">
+      </div>
+      <div style="display:flex;gap:8px">
+        <div class="stripe-row" style="flex:1"><span class="stripe-lbl" style="font-size:13px">到期</span><input class="stripe-in" type="text" maxlength="5" placeholder="MM/YY" style="width:70px"></div>
+        <div class="stripe-row" style="flex:1"><span class="stripe-lbl" style="font-size:13px">CVV</span><input class="stripe-in" type="text" maxlength="4" placeholder="•••" style="width:50px"></div>
+      </div>
+    </div>
+    <button class="pay-btn" id="payBtn" onclick="doPay()">开始7天免费试用</button>
+    <div class="pay-note">试用期后自动续费 · 随时取消<br><a href="#" onclick="skipPay();return false">跳过，使用免费版</a></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app" class="view">
+  <div class="ticker-band">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+  <div class="app-bar">
+    <div class="app-logo">
+      <div class="app-logo-ico">
+        <svg viewBox="0 0 44 44" fill="none" stroke="#3b7dd8" stroke-width="2.8" stroke-linecap="round">
+          <polyline points="40,11 25,26 16,17 4,29"/>
+          <polyline points="31,11 40,11 40,20"/>
+        </svg>
+      </div>
+      <div class="app-logo-txt">Stock<span>Cast</span></div>
+    </div>
+    <div class="bar-right">
+      <div class="mkt-pill"><div class="md" id="mktDot"></div><span id="mktTxt"></span></div>
+      <button class="icon-btn" onclick="toggleLang()" id="langBtn">中</button>
+      <button class="icon-btn" onclick="goPanel('Settings')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="panels">
+    <div class="panel on" id="pWatch">
+      <div class="sec" id="lblWatch">自选股</div>
+      <div class="wl-card">
+        <div class="wl-hd"><span></span><span id="lblStock">股票</span><span style="text-align:right" id="lblPrice">价格</span><span style="text-align:right" id="lblChg">涨跌</span><span></span></div>
+        <div id="watchRows"></div>
+      </div>
+      <button class="add-row" onclick="openModal()">
+        <svg viewBox="0 0 15 15"><line x1="7.5" y1="1" x2="7.5" y2="14"/><line x1="1" y1="7.5" x2="14" y2="7.5"/></svg>
+        <span id="lblAddStock">添加股票</span>
+      </button>
+    </div>
+
+    <div class="panel" id="pBroadcast">
+      <div class="sec" id="lblBcTitle">语音播报</div>
+      <div class="bc-card">
+        <div class="bc-top">
+          <div class="bc-info"><div class="bc-title" id="lblBcMain">自动播报</div><div class="bc-sub" id="bcSub">已停止</div></div>
+          <div class="sw" id="bcSw" onclick="toggleBc()"><div class="sw-k"></div></div>
+        </div>
+        <div class="waveform" id="waveform">
+          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
+        </div>
+        <div class="last-bc" id="lastBc">等待播报...</div>
+        <div style="margin-top:14px"><div class="sec" id="lblIntv">播报间隔</div>
+        <div class="intv-grid">
+          <button class="intv-btn" onclick="setIntv(1,this)">1分钟</button>
+          <button class="intv-btn on" onclick="setIntv(5,this)">5分钟</button>
+          <button class="intv-btn" onclick="setIntv(15,this)">15分钟</button>
+          <button class="intv-btn" onclick="setIntv(30,this)">30分钟</button>
+        </div></div>
+        <button class="test-btn" id="testBtnEl" onclick="testBc()">🔊 测试播报</button>
+      </div>
+      <div class="bc-card">
+        <div class="sec" id="lblVoice">语音选择</div>
+        <div class="voice-grid" id="voiceGrid"></div>
+      </div>
+    </div>
+
+    <div class="panel" id="pAlerts">
+      <div class="sec" id="lblAlTitle">价格提醒</div>
+      <div class="al-hit" id="alHit"></div>
+      <div class="al-form">
+        <div class="al-row">
+          <select class="af-sel" id="alSym"><option>AAPL</option><option>TSLA</option><option>NVDA</option><option>MSFT</option><option>AMZN</option><option>META</option><option>GOOGL</option><option>SPY</option><option>QQQ</option></select>
+          <select class="af-sel" id="alCond" style="max-width:76px"><option value="above">≥</option><option value="below">≤</option></select>
+          <input class="af-in" id="alPrice" type="number" placeholder="价格" step="0.01">
+        </div>
+        <button class="add-al-btn" onclick="addAlert()" id="lblAddAl">＋ 添加提醒</button>
+      </div>
+      <div class="al-list" id="alList">
+        <div style="padding:16px;font-size:14px;color:var(--tx3);text-align:center;font-family:var(--mono)" id="lblNoAl">暂无提醒</div>
+      </div>
+    </div>
+
+    <div class="panel" id="pHours">
+      <div class="sec" id="lblHrsTitle">交易时段</div>
+      <div class="hrs-grid">
+        <div class="hc pre-s"><div class="hc-lbl">盘前</div><div class="hc-time">04:00–09:30</div><div class="hc-st closed" id="hPreSt">ET</div></div>
+        <div class="hc active-s"><div class="hc-lbl">正式</div><div class="hc-time">09:30–16:00</div><div class="hc-st open" id="hRegSt">ET</div></div>
+        <div class="hc"><div class="hc-lbl">盘后</div><div class="hc-time">16:00–20:00</div><div class="hc-st closed" id="hAftSt">ET</div></div>
+        <div class="hc"><div class="hc-lbl">当前ET</div><div class="hc-time" id="etNow">–</div><div class="hc-st closed" id="hNowSt">–</div></div>
+      </div>
+      <div class="info-card">
+        <div class="sec">NYSE 交易规则</div>
+        <div style="font-size:14px;color:var(--tx2);line-height:1.9;font-family:var(--mono)">
+          <div>周一至周五 交易日</div>
+          <div>节假日休市（感恩节/圣诞节等）</div>
+          <div style="margin-top:8px;font-size:12px;color:var(--tx3)">盘前/盘后流动性较低，价差较大</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="pSettings">
+      <div class="sec">账号</div>
+      <div class="set-row">
+        <div><div class="sr-lbl" id="uEmail">—</div><div class="sr-sub" id="uPlan">免费版</div></div>
+        <span class="ptag free" id="pTag">FREE</span>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">退出登录</button>
+      <div class="sec" style="margin-top:20px">数据源</div>
+      <div class="api-card">
+        <div style="font-size:14px;font-weight:700;color:var(--tx);margin-bottom:4px">Finnhub API Key</div>
+        <div style="font-size:12px;color:var(--tx3);font-family:var(--mono)">免费注册 → finnhub.io → 复制 API Key</div>
+        <div class="api-in-row">
+          <input class="api-in" id="apiIn" type="password" placeholder="输入 Finnhub API Key...">
+          <button class="api-btn" id="apiBtn" onclick="connectFH()">连接</button>
+        </div>
+        <div class="conn-row"><div class="cd" id="connDot"></div><span class="ct" id="connTxt">未连接 — 使用模拟数据</span></div>
+      </div>
+      <div class="sec" style="margin-top:4px">通知</div>
+      <button class="push-btn" id="pushBtn" onclick="reqPush()">🔔 开启 Push 通知</button>
+      <div class="sec" style="margin-top:20px">订阅升级</div>
+      <div class="set-row">
+        <div><div class="sr-lbl">升级到 Pro</div><div class="sr-sub">实时数据 · 无限股票 · $19.99/月</div></div>
+        <button style="padding:9px 14px;border-radius:var(--r);background:var(--bl);color:#fff;font-size:14px;font-weight:700" onclick="showV('paywall')">升级</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bot-nav">
+    <button class="nb on" id="nbWatch" onclick="goPanel('Watch')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span id="nLblW">自选</span>
+    </button>
+    <button class="nb" id="nbBroadcast" onclick="goPanel('Broadcast')">
+      <svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+      <span id="nLblB">播报</span>
+    </button>
+    <button class="nb" id="nbAlerts" onclick="goPanel('Alerts')">
+      <div class="nb-ico">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div class="nb-badge" id="alBadge"></div>
+      </div>
+      <span id="nLblA">提醒</span>
+    </button>
+    <button class="nb" id="nbHours" onclick="goPanel('Hours')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span id="nLblH">时段</span>
+    </button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="addOverlay">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="lblModalTitle">添加股票</div>
+    <input class="modal-in" id="modalIn" type="text" maxlength="6" placeholder="AAPL" oninput="this.value=this.value.toUpperCase()">
+    <div class="modal-hint">支持：AAPL TSLA NVDA MSFT AMZN META GOOGL SPY QQQ 等</div>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="closeModal()">取消</button>
+      <button class="modal-confirm" onclick="confirmAdd()">添加</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const S={user:null,plan:"free",lang:"zh",apiKey:"",connected:false,bcOn:false,bcIntv:5,bcTimer:null,selPlanV:"pro",voices:[],selVoice:null,alerts:[],stocks:[
+  {sym:"AAPL",name:"Apple Inc.",   cl:"#1e2e4a",tc:"#7cb3f5",p:213.45,c:1.23, pct:0.58},
+  {sym:"TSLA",name:"Tesla Inc.",   cl:"#2a1a3a",tc:"#c084fc",p:178.92,c:-3.41,pct:-1.87},
+  {sym:"NVDA",name:"NVIDIA Corp.", cl:"#1a3a1a",tc:"#4ade80",p:1089.3,c:22.1, pct:2.07},
+  {sym:"MSFT",name:"Microsoft",    cl:"#1a2240",tc:"#60a5fa",p:432.18,c:-1.05,pct:-0.24},
+  {sym:"AMZN",name:"Amazon.com",   cl:"#3a2a0a",tc:"#fbbf24",p:185.67,c:3.28, pct:1.80},
+  {sym:"META",name:"Meta Platforms",cl:"#1a2040",tc:"#818cf8",p:521.34,c:8.91, pct:1.74},
+]};
+const I={
+  zh:{watch:"自选股",stock:"股票",price:"价格",chg:"涨跌",addStock:"添加股票",bcTitle:"语音播报",bcMain:"自动播报",stopped:"已停止",intv:"播报间隔",testBc:"🔊 测试播报",voice:"语音选择",alTitle:"价格提醒",noAl:"暂无提醒",addAl:"＋ 添加提醒",hrsTitle:"交易时段",modalTitle:"添加股票",nW:"自选",nB:"播报",nA:"提醒",nH:"时段",open:"开盘中",pre:"盘前",after:"盘后",closed:"已收盘",weekend:"周末休市",bcText:(g,l)=>{let t="美股行情播报：";g.forEach(s=>{t+=s.sym+"，当前"+s.p.toFixed(2)+"美元，上涨"+s.pct.toFixed(2)+"个百分点；";});l.forEach(s=>{t+=s.sym+"，当前"+s.p.toFixed(2)+"美元，下跌"+Math.abs(s.pct).toFixed(2)+"个百分点；";});return t;},alText:(s,a)=>"提醒："+s.sym+" 已"+(a.cond==="above"?"上涨至":"下跌至")+" $"+s.p.toFixed(2)+"，触发您设定的 $"+a.price.toFixed(2)+" 价位"},
+  en:{watch:"Watchlist",stock:"Stock",price:"Price",chg:"Change",addStock:"Add Stock",bcTitle:"Voice Cast",bcMain:"Auto Broadcast",stopped:"Stopped",intv:"Interval",testBc:"🔊 Test",voice:"Voice",alTitle:"Alerts",noAl:"No alerts",addAl:"＋ Add Alert",hrsTitle:"Market Hours",modalTitle:"Add Stock",nW:"Watch",nB:"Cast",nA:"Alerts",nH:"Hours",open:"Open",pre:"Pre-mkt",after:"After-hrs",closed:"Closed",weekend:"Weekend",bcText:(g,l)=>{let t="Market update: ";g.forEach(s=>{t+=s.sym+" $"+s.p.toFixed(2)+" +"+s.pct.toFixed(2)+"%. ";});l.forEach(s=>{t+=s.sym+" $"+s.p.toFixed(2)+" "+s.pct.toFixed(2)+"%. ";});return t;},alText:(s,a)=>"Alert: "+s.sym+" hit $"+s.p.toFixed(2)+", triggered $"+a.price.toFixed(2)+" "+a.cond+" alert"}
+};
+const T=()=>I[S.lang];
+function showV(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");}
+function switchTab(t){document.querySelectorAll(".auth-tab").forEach((b,i)=>b.classList.toggle("on",(i===0&&t==="login")||(i===1&&t==="register")));document.getElementById("loginF").style.display=t==="login"?"":"none";document.getElementById("regF").style.display=t==="register"?"":"none";}
+function errMsg(m){const e=document.getElementById("authErr");e.textContent=m;e.style.display="block";setTimeout(()=>e.style.display="none",3000);}
+function doLogin(){const em=document.getElementById("lEmail").value.trim(),pw=document.getElementById("lPwd").value;if(!em||!pw){errMsg("请填写邮箱和密码");return;}const u=JSON.parse(localStorage.getItem("sc_u")||"{}");if(!u[em]||u[em].pw!==btoa(pw)){errMsg("邮箱或密码错误");return;}login(em,u[em].plan||"free");}
+function doRegister(){const em=document.getElementById("rEmail").value.trim(),pw=document.getElementById("rPwd").value,pw2=document.getElementById("rPwd2").value;if(!em||!pw){errMsg("请填写完整信息");return;}if(pw!==pw2){errMsg("两次密码不一致");return;}if(pw.length<8){errMsg("密码至少8位");return;}const u=JSON.parse(localStorage.getItem("sc_u")||"{}");if(u[em]){errMsg("该邮箱已注册");return;}u[em]={pw:btoa(pw),plan:"free"};localStorage.setItem("sc_u",JSON.stringify(u));login(em,"free");}
+function demoLogin(){login("demo@stockcast.app","pro");}
+function login(em,plan){S.user=em;S.plan=plan;localStorage.setItem("sc_s",JSON.stringify({em,plan,ts:Date.now()}));loadData();if(plan==="free"&&em!=="demo@stockcast.app")showV("paywall");else launchApp();}
+function doLogout(){S.user=null;S.plan="free";localStorage.removeItem("sc_s");if(S.bcTimer)clearInterval(S.bcTimer);S.bcOn=false;showV("auth");}
+function loadData(){const d=localStorage.getItem("sc_d_"+S.user);if(d){const o=JSON.parse(d);if(o.stocks)S.stocks=o.stocks;if(o.alerts)S.alerts=o.alerts;if(o.apiKey)S.apiKey=o.apiKey;if(o.lang)S.lang=o.lang;}}
+function save(){if(!S.user)return;localStorage.setItem("sc_d_"+S.user,JSON.stringify({stocks:S.stocks,alerts:S.alerts,apiKey:S.apiKey,lang:S.lang}));}
+function selPlan(p){S.selPlanV=p;document.querySelectorAll(".plan-card").forEach(c=>c.classList.remove("sel"));document.getElementById("p"+p.charAt(0).toUpperCase()+p.slice(1)).classList.add("sel");const pp=document.getElementById("pwPay"),pb=document.getElementById("payBtn");if(p==="free"){pp.style.display="none";pb.textContent="使用免费版";}else{pp.style.display="block";pb.textContent="开始7天免费试用";}}
+function fmtCard(el){let v=el.value.replace(/\D/g,"").slice(0,16);el.value=v.replace(/(.{4})/g,"$1 ").trim();}
+function doPay(){if(S.selPlanV==="free"){skipPay();return;}const btn=document.getElementById("payBtn");btn.textContent="处理中...";btn.disabled=true;setTimeout(()=>{const u=JSON.parse(localStorage.getItem("sc_u")||"{}");if(u[S.user]){u[S.user].plan=S.selPlanV;localStorage.setItem("sc_u",JSON.stringify(u));}S.plan=S.selPlanV;const ss=JSON.parse(localStorage.getItem("sc_s")||"{}");ss.plan=S.selPlanV;localStorage.setItem("sc_s",JSON.stringify(ss));launchApp();},1400);}
+function skipPay(){selPlan("free");doPay();}
+function launchApp(){showV("app");applyLang();renderWatch();renderTicker();renderAlerts();loadVoices();checkMkt();setInterval(checkMkt,30000);startDrift();if(S.apiKey)reconnectFH();updateSettings();}
+function toggleLang(){S.lang=S.lang==="zh"?"en":"zh";document.getElementById("langBtn").textContent=S.lang==="zh"?"中":"EN";applyLang();save();}
+function st(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
+function applyLang(){const L=T();st("lblWatch",L.watch);st("lblStock",L.stock);st("lblPrice",L.price);st("lblChg",L.chg);st("lblAddStock",L.addStock);st("lblBcTitle",L.bcTitle);st("lblBcMain",L.bcMain);st("lblIntv",L.intv);st("testBtnEl",L.testBc);st("lblVoice",L.voice);st("lblAlTitle",L.alTitle);st("lblNoAl",L.noAl);st("lblAddAl",L.addAl);st("lblHrsTitle",L.hrsTitle);st("lblModalTitle",L.modalTitle);st("nLblW",L.nW);st("nLblB",L.nB);st("nLblA",L.nA);st("nLblH",L.nH);if(!S.bcOn)st("bcSub",L.stopped);document.getElementById("langBtn").textContent=S.lang==="zh"?"中":"EN";}
+function goPanel(name){document.querySelectorAll(".panel").forEach(p=>p.classList.remove("on"));document.getElementById("p"+name).classList.add("on");document.querySelectorAll(".nb").forEach(b=>b.classList.remove("on"));const m={Watch:"nbWatch",Broadcast:"nbBroadcast",Alerts:"nbAlerts",Hours:"nbHours"};const nb=document.getElementById(m[name]);if(nb)nb.classList.add("on");}
+function renderWatch(){const el=document.getElementById("watchRows");el.innerHTML="";S.stocks.forEach(s=>{const up=s.c>=0,hasAl=S.alerts.some(a=>a.sym===s.sym);const row=document.createElement("div");row.className="wl-row";row.innerHTML='<div class="s-ico" style="background:'+s.cl+';color:'+s.tc+'">'+s.sym.slice(0,2)+'</div><div><div class="s-sym">'+s.sym+'</div><div class="s-nm">'+s.name+'</div></div><div class="s-px">$'+s.p.toFixed(2)+'</div><div class="s-ch '+( up?"up":"dn")+'">'+( up?"+":"")+s.pct.toFixed(2)+'%</div><button class="bell-btn '+( hasAl?"on":"")+'" onclick="focusAlert(\'\'+s.sym+'\',event)"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>';el.appendChild(row);});const sel=document.getElementById("alSym");if(sel){const cur=sel.value;sel.innerHTML=S.stocks.map(s=>"<option"+(s.sym===cur?" selected":"")+">"+s.sym+"</option>").join("");}}
+function focusAlert(sym,e){e.stopPropagation();goPanel("Alerts");const s=document.getElementById("alSym");if(s)s.value=sym;document.getElementById("alPrice").focus();}
+function openModal(){document.getElementById("addOverlay").classList.add("on");document.getElementById("modalIn").value="";document.getElementById("modalIn").focus();}
+function closeModal(){document.getElementById("addOverlay").classList.remove("on");}
+function confirmAdd(){const sym=document.getElementById("modalIn").value.trim().toUpperCase();if(!sym)return;if(S.stocks.find(s=>s.sym===sym)){showToast(sym+" 已在自选股中");closeModal();return;}if(S.plan==="free"&&S.stocks.length>=3){showToast("免费版最多3只，请升级Pro");return;}const cl=["#1e2e4a","#2a1a3a","#1a3a1a","#3a2a0a","#1a2040","#2a1a2a"],tc=["#7cb3f5","#c084fc","#4ade80","#fbbf24","#818cf8","#f9a8d4"];const i=S.stocks.length%6;S.stocks.push({sym,name:sym,cl:cl[i],tc:tc[i],p:100,c:0,pct:0});renderWatch();renderTicker();save();if(S.apiKey)fetchOne(sym,S.apiKey);showToast(sym+" 已添加");closeModal();}
+function renderTicker(){const el=document.getElementById("tickerTrack");const items=[...S.stocks,...S.stocks];el.innerHTML=items.map(s=>{const up=s.c>=0;return'<div class="ti"><span class="ti-sym">'+s.sym+'</span><span>$'+s.p.toFixed(2)+'</span><span class="ti-chg '+( up?"up":"dn")+'">'+( up?"▲":"▼")+Math.abs(s.pct).toFixed(2)+'%</span></div>';}).join("");}
+function getET(){const n=new Date();return new Date(n.getTime()+n.getTimezoneOffset()*60000-5*3600000);}
+function checkMkt(){const et=getET();const h=et.getHours(),m=et.getMinutes(),day=et.getDay();const tot=h*60+m;const L=T();const etStr=et.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});st("etNow",etStr);let status,dc;if(day===0||day===6){status=L.weekend;dc="closed";}else if(tot>=570&&tot<960){status=L.open;dc="open";}else if(tot>=240&&tot<570){status=L.pre;dc="pre";}else if(tot>=960&&tot<1200){status=L.after;dc="pre";}else{status=L.closed;dc="closed";}document.getElementById("mktDot").className="md "+dc;st("mktTxt",status);st("hPreSt",tot>=240&&tot<570?L.open:L.closed);st("hRegSt",tot>=570&&tot<960?L.open:L.closed);st("hAftSt",tot>=960&&tot<1200?L.open:L.closed);st("hNowSt",etStr);document.getElementById("hPreSt").className="hc-st "+(tot>=240&&tot<570?"open":"closed");document.getElementById("hRegSt").className="hc-st "+(tot>=570&&tot<960?"open":"closed");document.getElementById("hAftSt").className="hc-st "+(tot>=960&&tot<1200?"open":"closed");}
+function toggleBc(){S.bcOn=!S.bcOn;document.getElementById("bcSw").classList.toggle("on",S.bcOn);document.getElementById("waveform").classList.toggle("on",S.bcOn);if(S.bcOn){st("bcSub","每 "+S.bcIntv+" 分钟");doSpeak();S.bcTimer=setInterval(doSpeak,S.bcIntv*60000);}else{st("bcSub",T().stopped);if(S.bcTimer)clearInterval(S.bcTimer);S.bcTimer=null;}}
+function setIntv(m,btn){S.bcIntv=m;document.querySelectorAll(".intv-btn").forEach(b=>b.classList.remove("on"));btn.classList.add("on");if(S.bcOn){st("bcSub","每 "+m+" 分钟");if(S.bcTimer)clearInterval(S.bcTimer);S.bcTimer=setInterval(doSpeak,m*60000);}}
+function testBc(){doSpeak();}
+function doSpeak(){const g=S.stocks.filter(s=>s.c>0).sort((a,b)=>b.pct-a.pct).slice(0,2);const l=S.stocks.filter(s=>s.c<0).sort((a,b)=>a.pct-b.pct).slice(0,1);speak(T().bcText(g,l));const now=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});st("lastBc",now+" — "+(g.map(s=>s.sym+" +"+s.pct.toFixed(1)+"%").join("  ")||"无数据"));}
+function speak(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);if(S.selVoice)u.voice=S.selVoice;u.lang=S.lang==="zh"?"zh-CN":"en-US";u.rate=1.1;const wf=document.getElementById("waveform");wf.classList.add("on");u.onend=()=>{if(!S.bcOn)wf.classList.remove("on");};window.speechSynthesis.speak(u);}
+function loadVoices(){const load=()=>{S.voices=window.speechSynthesis.getVoices().filter(v=>v.lang.startsWith("zh")||v.lang.startsWith("en"));renderVoices();};if(window.speechSynthesis){load();window.speechSynthesis.onvoiceschanged=load;}}
+function renderVoices(){const el=document.getElementById("voiceGrid");if(!el)return;const show=S.voices.slice(0,6);if(!show.length){el.innerHTML='<div style="font-size:13px;color:var(--tx3);font-family:var(--mono)">无可用语音</div>';return;}el.innerHTML=show.map((v,i)=>'<div class="vc '+( i===0?"on":"")+'" onclick="selVoice('+i+',this)"><div class="vc-name">'+v.name.slice(0,18)+'</div><div class="vc-lang">'+v.lang+'</div></div>').join("");S.selVoice=show[0]||null;}
+function selVoice(i,el){document.querySelectorAll(".vc").forEach(c=>c.classList.remove("on"));el.classList.add("on");S.selVoice=S.voices[i]||null;}
+function addAlert(){const sym=document.getElementById("alSym").value;const cond=document.getElementById("alCond").value;const price=parseFloat(document.getElementById("alPrice").value);if(!price||price<=0){showToast("请输入有效价格");return;}S.alerts.push({sym,cond,price,id:Date.now()});document.getElementById("alPrice").value="";renderAlerts();save();showToast(sym+" $"+price.toFixed(2)+" 提醒已设置");badge();}
+function removeAlert(id){S.alerts=S.alerts.filter(a=>a.id!==id);renderAlerts();save();badge();}
+function renderAlerts(){const el=document.getElementById("alList");if(!S.alerts.length){el.innerHTML='<div style="padding:16px;font-size:14px;color:var(--tx3);text-align:center;font-family:var(--mono)">'+T().noAl+'</div>';badge();return;}el.innerHTML=S.alerts.map(a=>'<div class="al-item"><div class="al-l"><span class="al-sym">'+a.sym+'</span><span class="al-cd">'+( a.cond==="above"?"≥":"≤")+'</span><span class="al-px">$'+a.price.toFixed(2)+'</span></div><button class="al-del" onclick="removeAlert('+a.id+')">×</button></div>').join("");badge();}
+function badge(){const b=document.getElementById("alBadge");if(!b)return;if(S.alerts.length){b.textContent=S.alerts.length;b.style.display="flex";}else b.style.display="none";}
+function checkAlerts(){S.alerts.forEach(a=>{const s=S.stocks.find(x=>x.sym===a.sym);if(!s)return;if((a.cond==="above"&&s.p>=a.price)||(a.cond==="below"&&s.p<=a.price)){const msg=T().alText(s,a);speak(msg);const el=document.getElementById("alHit");if(el){el.textContent=msg;el.style.display="block";setTimeout(()=>el.style.display="none",6000);}if(Notification.permission==="granted")new Notification("StockCast",{body:msg});S.alerts=S.alerts.filter(x=>x.id!==a.id);renderAlerts();renderWatch();save();}});}
+function connectFH(){const k=document.getElementById("apiIn").value.trim();if(!k){showToast("请输入 API Key");return;}const btn=document.getElementById("apiBtn");btn.textContent="连接中...";fetch("https://finnhub.io/api/v1/quote?symbol=AAPL&token="+k).then(r=>r.json()).then(d=>{if(d&&d.c){S.apiKey=k;S.connected=true;save();btn.textContent="已连接 ✓";document.getElementById("connDot").classList.add("live");st("connTxt","Finnhub — 实时数据");fetchAll(k);setInterval(()=>fetchAll(k),60000);showToast("已连接 Finnhub 实时数据 ✓");}else{btn.textContent="Key 无效";setTimeout(()=>btn.textContent="连接",2000);}}).catch(()=>{btn.textContent="连接失败";setTimeout(()=>btn.textContent="连接",2000);});}
+function reconnectFH(){document.getElementById("apiIn").value=S.apiKey;fetchAll(S.apiKey);}
+function fetchAll(k){S.stocks.forEach((s,i)=>setTimeout(()=>fetchOne(s.sym,k),i*350));}
+function fetchOne(sym,k){fetch("https://finnhub.io/api/v1/quote?symbol="+sym+"&token="+k).then(r=>r.json()).then(d=>{if(d&&d.c){const s=S.stocks.find(x=>x.sym===sym);if(s){s.p=d.c;s.c=d.c-d.pc;s.pct=((d.c-d.pc)/d.pc)*100;}renderWatch();renderTicker();}}).catch(()=>{});}
+function startDrift(){setInterval(()=>{if(S.connected)return;S.stocks.forEach(s=>{const d=(Math.random()-.48)*.9;s.p=Math.max(1,s.p+d);s.c+=d;s.pct=(s.c/(s.p-s.c))*100;});renderWatch();renderTicker();checkAlerts();},3000);}
+function reqPush(){if(!("Notification" in window)){showToast("浏览器不支持通知");return;}Notification.requestPermission().then(p=>{const btn=document.getElementById("pushBtn");if(p==="granted"){btn.textContent="🔔 Push 通知已开启";btn.classList.add("ok");showToast("Push 通知已开启 ✓");}else showToast("未授权通知权限");});}
+function updateSettings(){if(!S.user)return;st("uEmail",S.user);const pl={free:"免费版",pro:"Pro 订阅",annual:"年付 Pro"};const pt={free:"FREE",pro:"PRO",annual:"ANNUAL"};const pc={free:"free",pro:"pro",annual:"annual"};st("uPlan",pl[S.plan]||"免费版");const tag=document.getElementById("pTag");if(tag){tag.textContent=pt[S.plan]||"FREE";tag.className="ptag "+(pc[S.plan]||"free");}if(S.apiKey)document.getElementById("apiIn").value=S.apiKey;if(S.connected){document.getElementById("connDot").classList.add("live");st("connTxt","Finnhub — 实时数据");document.getElementById("apiBtn").textContent="已连接 ✓";}if(Notification.permission==="granted"){const pb=document.getElementById("pushBtn");pb.textContent="🔔 Push 通知已开启";pb.classList.add("ok");}}
+function showToast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400);}
+if("serviceWorker" in navigator){const sw='const C="sc-v1";self.addEventListener("install",e=>e.waitUntil(caches.open(C).then(c=>c.addAll(["/"]))));self.addEventListener("fetch",e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>caches.match("/")))));';;navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:"text/javascript"}))).catch(()=>{});}
+window.addEventListener("load",()=>{setTimeout(()=>{const ss=localStorage.getItem("sc_s");if(ss){try{const o=JSON.parse(ss);if(o.em&&Date.now()-o.ts<7*86400000){S.user=o.em;S.plan=o.plan||"free";loadData();launchApp();return;}}catch(e){}}showV("auth");},1900);});
+</script>
+</body>
+</html>
