@@ -291,7 +291,7 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
   </div>
   <div class="sp-title">Stock<span>Cast</span></div>
   <div class="sp-sub">美股语音播报器</div>
-  <div class="sp-bar"><div class="sp-fill"></div></div>
+  <div class="sp-bar"><div class="sp-fill" id="spFill"></div></div>
 </div>
 
 <!-- AUTH -->
@@ -535,6 +535,34 @@ input,select{font-family:var(--mono);outline:none;-webkit-appearance:none;appear
 <div class="toast" id="toast"></div>
 
 <script>
+// ── 视图切换：强制用display，不依赖class ──
+function showV(id){
+  ["splash","auth","paywall","app"].forEach(v=>{
+    const el=document.getElementById(v);
+    if(el) el.style.display=(v===id)?"flex":"none";
+  });
+}
+function boot(){
+  try{
+    const ss=localStorage.getItem("sc_s");
+    if(ss){
+      const o=JSON.parse(ss);
+      if(o&&o.em&&(Date.now()-o.ts)<7*86400000){
+        S.user=o.em; S.plan=o.plan||"free";
+        loadData(); launchApp(); return;
+      }
+    }
+  }catch(e){}
+  showV("auth");
+}
+window.addEventListener("load",()=>{
+  // 动画结束触发（主）
+  const fill=document.getElementById("spFill");
+  if(fill) fill.addEventListener("animationend",()=>setTimeout(boot,300));
+  // 超时保底（副）
+  setTimeout(boot,2500);
+});
+
 const S={user:null,plan:"free",lang:"zh",apiKey:"",connected:false,bcOn:false,bcIntv:5,bcTimer:null,selPlanV:"pro",voices:[],selVoice:null,alerts:[],stocks:[
   {sym:"AAPL",name:"Apple Inc.",   cl:"#1e2e4a",tc:"#7cb3f5",p:213.45,c:1.23, pct:0.58},
   {sym:"TSLA",name:"Tesla Inc.",   cl:"#2a1a3a",tc:"#c084fc",p:178.92,c:-3.41,pct:-1.87},
@@ -548,7 +576,6 @@ const I={
   en:{watch:"Watchlist",stock:"Stock",price:"Price",chg:"Change",addStock:"Add Stock",bcTitle:"Voice Cast",bcMain:"Auto Broadcast",stopped:"Stopped",intv:"Interval",testBc:"🔊 Test",voice:"Voice",alTitle:"Alerts",noAl:"No alerts",addAl:"＋ Add Alert",hrsTitle:"Market Hours",modalTitle:"Add Stock",nW:"Watch",nB:"Cast",nA:"Alerts",nH:"Hours",open:"Open",pre:"Pre-mkt",after:"After-hrs",closed:"Closed",weekend:"Weekend",bcText:(g,l)=>{let t="Market update: ";g.forEach(s=>{t+=s.sym+" $"+s.p.toFixed(2)+" +"+s.pct.toFixed(2)+"%. ";});l.forEach(s=>{t+=s.sym+" $"+s.p.toFixed(2)+" "+s.pct.toFixed(2)+"%. ";});return t;},alText:(s,a)=>"Alert: "+s.sym+" hit $"+s.p.toFixed(2)+", triggered $"+a.price.toFixed(2)+" "+a.cond+" alert"}
 };
 const T=()=>I[S.lang];
-function showV(id){document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));document.getElementById(id).classList.add("active");}
 function switchTab(t){document.querySelectorAll(".auth-tab").forEach((b,i)=>b.classList.toggle("on",(i===0&&t==="login")||(i===1&&t==="register")));document.getElementById("loginF").style.display=t==="login"?"":"none";document.getElementById("regF").style.display=t==="register"?"":"none";}
 function errMsg(m){const e=document.getElementById("authErr");e.textContent=m;e.style.display="block";setTimeout(()=>e.style.display="none",3000);}
 function doLogin(){const em=document.getElementById("lEmail").value.trim(),pw=document.getElementById("lPwd").value;if(!em||!pw){errMsg("请填写邮箱和密码");return;}const u=JSON.parse(localStorage.getItem("sc_u")||"{}");if(!u[em]||u[em].pw!==btoa(pw)){errMsg("邮箱或密码错误");return;}login(em,u[em].plan||"free");}
@@ -596,21 +623,7 @@ function startDrift(){setInterval(()=>{if(S.connected)return;S.stocks.forEach(s=
 function reqPush(){if(!("Notification" in window)){showToast("浏览器不支持通知");return;}Notification.requestPermission().then(p=>{const btn=document.getElementById("pushBtn");if(p==="granted"){btn.textContent="🔔 Push 通知已开启";btn.classList.add("ok");showToast("Push 通知已开启 ✓");}else showToast("未授权通知权限");});}
 function updateSettings(){if(!S.user)return;st("uEmail",S.user);const pl={free:"免费版",pro:"Pro 订阅",annual:"年付 Pro"};const pt={free:"FREE",pro:"PRO",annual:"ANNUAL"};const pc={free:"free",pro:"pro",annual:"annual"};st("uPlan",pl[S.plan]||"免费版");const tag=document.getElementById("pTag");if(tag){tag.textContent=pt[S.plan]||"FREE";tag.className="ptag "+(pc[S.plan]||"free");}if(S.apiKey)document.getElementById("apiIn").value=S.apiKey;if(S.connected){document.getElementById("connDot").classList.add("live");st("connTxt","Finnhub — 实时数据");document.getElementById("apiBtn").textContent="已连接 ✓";}if(Notification.permission==="granted"){const pb=document.getElementById("pushBtn");pb.textContent="🔔 Push 通知已开启";pb.classList.add("ok");}}
 function showToast(msg){const el=document.getElementById("toast");el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2400);}
-function boot(){
-  try{
-    const ss=localStorage.getItem("sc_s");
-    if(ss){
-      const o=JSON.parse(ss);
-      if(o.em&&Date.now()-o.ts<7*86400000){
-        S.user=o.em;S.plan=o.plan||"free";
-        loadData();launchApp();return;
-      }
-    }
-  }catch(e){}
-  showV("auth");
-}
-// Splash动画1.8s完成，等2.2s确保动画结束后再跳转
-window.addEventListener("load",()=>setTimeout(boot,2200));
+
 </script>
 </body>
 </html>
